@@ -1,0 +1,40 @@
+# IDE
+/.idea
+/.vscode
+
+# Env
+.env*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.import_linter_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+.next/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel/
+
+# Local data
+.cache/
+/data/cache
+/evals/results
+
+# Playwright
+test-results/
+playwright-report/
+
+# OS
+.DS_Store

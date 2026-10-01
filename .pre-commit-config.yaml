@@ -1,0 +1,25 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run --project apps/api ruff check --fix --force-exclude
+        language: system
+        types: [python]
+        files: ^apps/api/
+      - id: ruff-format
+        name: ruff format
+        entry: uv run --project apps/api ruff format --force-exclude
+        language: system
+        types: [python]
+        files: ^apps/api/
+      - id: web-lint
+        name: web lint
+        entry: pnpm --dir apps/web lint
+        language: system
+        files: ^apps/web/.*\.(ts|tsx|mjs)$
+        pass_filenames: false
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks

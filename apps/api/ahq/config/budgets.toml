@@ -1,0 +1,29 @@
+# Daily spending limits (UTC) and breakers.
+
+[daily]
+total_usd = 40.00         # all agents together
+[daily.agents]
+dispatcher = 2.00
+support = 24.00
+ops = 6.00
+insights = 6.00
+qa = 4.00
+guard = 2.00              # the input check
+
+[model_breaker]
+errors = 3                # consecutive failed calls to one model open its breaker
+cooldown_minutes = 10     # calls go to the model's fallback until then
+
+[agent_breaker]
+failures = 5              # failed runs of one agent within the window pause it
+window_minutes = 30
+
+[calls]
+# Concurrent calls per provider, and retries.
+slots = { anthropic = 8, openai = 8, voyageai = 4 }
+default_slots = 8
+lease_seconds = 180       # a slot its caller never gave back frees itself after this
+wait_seconds = 20         # a call waits this long for a free slot, then its work is deferred
+attempts = 4              # tries per call, the first included
+backoff_seconds = 1.0     # the n-th retry waits a random time up to backoff * 2^n
+max_wait_seconds = 30     # a provider that asks for a longer wait gets it by deferring the work

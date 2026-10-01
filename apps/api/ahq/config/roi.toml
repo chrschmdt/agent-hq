@@ -1,0 +1,2 @@
+# Assumed cost of a person handling the same ticket.
+human_cost_per_ticket_usd = 5.00

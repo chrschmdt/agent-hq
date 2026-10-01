@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 696" role="img" aria-label="Tables by schema. The τ³ store (retail) is seeded from τ³-bench unchanged; shipments, refunds and reviews around it are generated and point into it by ID; support tickets and messages and daily KPIs have their own schemas; reviews and ticket messages carry vector embeddings. The ops schema holds the event log, work items, approvals, and simulator runs with their scripts.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --indigo:#4f46e5; --indigo-bg:#eef2ff; --stone:#a8a29e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --indigo:#a5b4fc; --indigo-bg:#1e1b4b; --stone:#78716c; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .group-store { fill: var(--indigo-bg); stroke: var(--indigo); stroke-width: 1.2; }
+    .group-own { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.2; }
+    .group-ops { fill: var(--band); stroke: var(--line); }
+    .kicker { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; }
+    .kicker-store { fill: var(--indigo); }
+    .kicker-own { fill: var(--teal); }
+    .kicker-ops { fill: var(--muted); }
+    .sub { font-size: 11.5px; fill: var(--ink2); }
+    .table { fill: var(--bg); stroke: var(--stone); }
+    .tname { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; font-weight: 700; fill: var(--ink); }
+    .col { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; fill: var(--muted); }
+    .vec { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; font-weight: 700; fill: var(--teal); }
+    .rel { fill: none; stroke: var(--ink2); stroke-width: 1.3; }
+    .cross { fill: none; stroke: var(--teal); stroke-width: 1.4; stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .note { font-size: 11.5px; fill: var(--ink2); }
+    .note-teal { font-size: 11.5px; font-weight: 600; fill: var(--teal); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+  </defs>
+  <rect class="panel" x="0.5" y="0.5" width="1199" height="695" rx="16"/>
+  <rect class="group-store" x="28" y="28" width="432" height="480" rx="12"/>
+  <text class="kicker kicker-store" x="44" y="54">THE τ³ STORE</text>
+  <text class="sub" x="44" y="72">schema retail · seeded from τ³-bench</text>
+  <rect class="group-own" x="480" y="28" width="216" height="480" rx="12"/>
+  <text class="kicker kicker-own" x="496" y="54">THE WORLD AROUND IT</text>
+  <text class="sub" x="496" y="72">retail · generated</text>
+  <rect class="group-own" x="716" y="28" width="216" height="480" rx="12"/>
+  <text class="kicker kicker-own" x="732" y="54">SUPPORT</text>
+  <text class="sub" x="732" y="72">schema support</text>
+  <rect class="group-own" x="952" y="28" width="220" height="480" rx="12"/>
+  <text class="kicker kicker-own" x="968" y="54">KPIS</text>
+  <text class="sub" x="968" y="72">schema kpi</text>
+  <rect class="group-ops" x="28" y="528" width="1144" height="140" rx="12"/>
+  <text class="kicker kicker-ops" x="44" y="554">OPERATIONS</text>
+  <text class="sub" x="44" y="572">schema ops · the runtime and the simulator</text>
+  <rect class="table" x="48" y="92" width="176" height="62" rx="8"/>
+  <text class="tname" x="60" y="113">customers</text>
+  <text class="col" x="60" y="129">user_id · email</text>
+  <text class="col" x="60" y="143">name · address</text>
+  <rect class="table" x="264" y="92" width="176" height="62" rx="8"/>
+  <text class="tname" x="276" y="113">payment_methods</text>
+  <text class="col" x="276" y="129">id · user_id · source</text>
+  <text class="col" x="276" y="143">brand · balance</text>
+  <rect class="table" x="48" y="196" width="176" height="62" rx="8"/>
+  <text class="tname" x="60" y="217">orders</text>
+  <text class="col" x="60" y="233">order_id · user_id</text>
+  <text class="col" x="60" y="247">status · placed_at</text>
+  <rect class="table" x="264" y="196" width="176" height="62" rx="8"/>
+  <text class="tname" x="276" y="217">order_items</text>
+  <text class="col" x="276" y="233">order_id · position</text>
+  <text class="col" x="276" y="247">item_id · price</text>
+  <rect class="table" x="264" y="300" width="176" height="62" rx="8"/>
+  <text class="tname" x="276" y="321">order_payments</text>
+  <text class="col" x="276" y="337">order_id · position</text>
+  <text class="col" x="276" y="351">type · amount · method</text>
+  <rect class="table" x="48" y="300" width="176" height="62" rx="8"/>
+  <text class="tname" x="60" y="321">order_fulfillments</text>
+  <text class="col" x="60" y="337">order_id · position</text>
+  <text class="col" x="60" y="351">tracking_ids · item_ids</text>
+  <rect class="table" x="48" y="420" width="176" height="62" rx="8"/>
+  <text class="tname" x="60" y="441">products</text>
+  <text class="col" x="60" y="457">product_id · name</text>
+  <rect class="table" x="264" y="420" width="176" height="62" rx="8"/>
+  <text class="tname" x="276" y="441">product_variants</text>
+  <text class="col" x="276" y="457">item_id · product_id</text>
+  <text class="col" x="276" y="471">options · price</text>
+  <rect class="table" x="500" y="92" width="176" height="62" rx="8"/>
+  <text class="tname" x="512" y="113">shipments</text>
+  <text class="col" x="512" y="129">tracking_id · order_id</text>
+  <text class="col" x="512" y="143">carrier · region</text>
+  <rect class="table" x="500" y="196" width="176" height="62" rx="8"/>
+  <text class="tname" x="512" y="217">refunds</text>
+  <text class="col" x="512" y="233">refund_id · order_id</text>
+  <text class="col" x="512" y="247">amount · created_at</text>
+  <rect class="table" x="500" y="300" width="176" height="62" rx="8"/>
+  <text class="tname" x="512" y="321">reviews</text>
+  <text class="col" x="512" y="337">product_id · item_id</text>
+  <text class="col" x="512" y="351">rating · body</text>
+  <text class="vec" x="664" y="353" text-anchor="end">vector</text>
+  <rect class="table" x="736" y="92" width="176" height="62" rx="8"/>
+  <text class="tname" x="748" y="113">tickets</text>
+  <text class="col" x="748" y="129">ticket_id · user_id</text>
+  <text class="col" x="748" y="143">order_id · intent</text>
+  <rect class="table" x="736" y="196" width="176" height="62" rx="8"/>
+  <text class="tname" x="748" y="217">ticket_messages</text>
+  <text class="col" x="748" y="233">ticket_id · position</text>
+  <text class="col" x="748" y="247">author · body</text>
+  <text class="vec" x="900" y="249" text-anchor="end">vector</text>
+  <rect class="table" x="974" y="92" width="176" height="62" rx="8"/>
+  <text class="tname" x="986" y="113">daily</text>
+  <text class="col" x="986" y="129">day · metric</text>
+  <text class="col" x="986" y="143">dimension · key</text>
+  <rect class="table" x="48" y="592" width="176" height="62" rx="8"/>
+  <text class="tname" x="60" y="613">events</text>
+  <text class="col" x="60" y="629">id · txid · kind</text>
+  <text class="col" x="60" y="643">payload</text>
+  <rect class="table" x="272" y="592" width="176" height="62" rx="8"/>
+  <text class="tname" x="284" y="613">work_items</text>
+  <text class="col" x="284" y="629">id · status · lease</text>
+  <text class="col" x="284" y="643">thread_id</text>
+  <rect class="table" x="496" y="592" width="176" height="62" rx="8"/>
+  <text class="tname" x="508" y="613">approvals</text>
+  <text class="col" x="508" y="629">work_item_id</text>
+  <text class="col" x="508" y="643">interrupt_id · status</text>
+  <rect class="table" x="720" y="592" width="176" height="62" rx="8"/>
+  <text class="tname" x="732" y="613">sim_runs</text>
+  <text class="col" x="732" y="629">run_id · seed · status</text>
+  <text class="col" x="732" y="643">sim_now · tick_no</text>
+  <rect class="table" x="944" y="592" width="176" height="62" rx="8"/>
+  <text class="tname" x="956" y="613">sim_script</text>
+  <text class="col" x="956" y="629">run_id · seq · due_at</text>
+  <text class="col" x="956" y="643">kind · payload</text>
+  <path class="rel" d="M224 123 L264 123" marker-end="url(#arrow)"/>
+  <path class="rel" d="M136 154 L136 196" marker-end="url(#arrow)"/>
+  <path class="rel" d="M224 227 L264 227" marker-end="url(#arrow)"/>
+  <path class="rel" d="M136 258 L136 300" marker-end="url(#arrow)"/>
+  <path class="rel" d="M244 227 V331 H264" marker-end="url(#arrow)"/>
+  <path class="rel" d="M224 451 L264 451" marker-end="url(#arrow)"/>
+  <path class="rel" d="M824 154 L824 196" marker-end="url(#arrow)"/>
+  <path class="rel" d="M448 623 L496 623" marker-end="url(#arrow)"/>
+  <path class="rel" d="M896 623 L944 623" marker-end="url(#arrow)"/>
+  <text class="note-teal" x="500" y="400">Everything generated</text>
+  <text class="note" x="500" y="416">points into the store by ID:</text>
+  <text class="note" x="500" y="432">orders, customers, products.</text>
+  <text class="note" x="500" y="456">The store stays exactly as</text>
+  <text class="note" x="500" y="472">τ³ defines it, so a hash of</text>
+  <text class="note" x="500" y="488">it still grades against τ³.</text>
+  <text class="note-teal" x="736" y="300">Embeddings live next to</text>
+  <text class="note" x="736" y="316">the rows they describe, so</text>
+  <text class="note" x="736" y="332">similarity, joins and filters</text>
+  <text class="note" x="736" y="348">run in one SQL statement.</text>
+  <text class="note-teal" x="974" y="190">Synthetic history</text>
+  <text class="note" x="974" y="206">90 days by store, category,</text>
+  <text class="note" x="974" y="222">carrier and region.</text>
+</svg>

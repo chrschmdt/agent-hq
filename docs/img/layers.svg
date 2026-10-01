@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 894" role="img" aria-label="Package layers of the api, from entry points at the top to pure domain types at the bottom. Imports only point downward. Graphs, the simulator and the management layer sit above scorecards, which sit above the agents, grading, guardrails and tools packages, then the store, knowledge and analytics packages and the interfaces in ports; adapters and the database package implement those interfaces, so nothing in the core depends on a vendor SDK.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --teal-ink:#134e4a; --stone:#a8a29e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --teal-ink:#ccfbf1; --stone:#78716c; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .band { fill: var(--band); stroke: var(--line); }
+    .band-key { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .row { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+    .chip { fill: var(--bg); stroke: var(--stone); }
+    .chip-key { fill: var(--bg); stroke: var(--teal); }
+    .name { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .desc { font-size: 11.5px; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.5; }
+    .impl { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .note { font-size: 11.5px; fill: var(--ink2); }
+    .note-teal { font-size: 11.5px; fill: var(--teal); font-weight: 600; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+  </defs>
+
+  <rect class="panel" x="0.5" y="0.5" width="999" height="893" rx="16"/>
+  <text class="row" x="165" y="57" text-anchor="end">ENTRY POINTS</text>
+  <rect class="band" x="180" y="30" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="38" width="190" height="28" rx="6"/>
+  <text x="204" y="57"><tspan class="name">main</tspan><tspan class="desc" dx="8">ASGI app</tspan></text>
+  <rect class="chip" x="394" y="38" width="190" height="28" rx="6"/>
+  <text x="406" y="57"><tspan class="name">worker</tspan><tspan class="desc" dx="8">queue subscribers</tspan></text>
+  <rect class="chip" x="596" y="38" width="192" height="28" rx="6"/>
+  <text x="608" y="57"><tspan class="name">cli</tspan><tspan class="desc" dx="8">seed, kb, sim, evals</tspan></text>
+  <text class="row" x="165" y="113" text-anchor="end">HTTP</text>
+  <rect class="band" x="180" y="86" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="94" width="290" height="28" rx="6"/>
+  <text x="204" y="113"><tspan class="name">api</tspan><tspan class="desc" dx="8">routes, SSE, app factory</tspan></text>
+  <text class="row" x="165" y="169" text-anchor="end">EVALS</text>
+  <rect class="band" x="180" y="142" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="150" width="290" height="28" rx="6"/>
+  <text x="204" y="169"><tspan class="name">evals</tspan><tspan class="desc" dx="8">τ³, gate, scenario days</tspan></text>
+  <text class="row" x="165" y="225" text-anchor="end">WIRING</text>
+  <rect class="band" x="180" y="198" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="206" width="290" height="28" rx="6"/>
+  <text x="204" y="225"><tspan class="name">app</tspan><tspan class="desc" dx="8">dependency container</tspan></text>
+  <text class="row" x="165" y="281" text-anchor="end">RUNTIME</text>
+  <rect class="band" x="180" y="254" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="262" width="290" height="28" rx="6"/>
+  <text x="204" y="281"><tspan class="name">runtime</tspan><tspan class="desc" dx="8">segments, reviews</tspan></text>
+  <rect class="chip" x="494" y="262" width="294" height="28" rx="6"/>
+  <text x="506" y="281"><tspan class="name">mcp_servers</tspan><tspan class="desc" dx="8">tools over HTTP</tspan></text>
+  <text class="row" x="165" y="337" text-anchor="end">TEST DOUBLES</text>
+  <rect class="band" x="180" y="310" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="318" width="290" height="28" rx="6"/>
+  <text x="204" y="337"><tspan class="name">testing</tspan><tspan class="desc" dx="8">scripted models, rules</tspan></text>
+  <text class="row" x="165" y="393" text-anchor="end">INFRASTRUCTURE</text>
+  <rect class="band" x="180" y="366" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="374" width="290" height="28" rx="6"/>
+  <text x="204" y="393"><tspan class="name">adapters</tspan><tspan class="desc" dx="8">vendor SDKs live here</tspan></text>
+  <rect class="chip" x="494" y="374" width="294" height="28" rx="6"/>
+  <text x="506" y="393"><tspan class="name">db</tspan><tspan class="desc" dx="8">Postgres, checkpoints</tspan></text>
+  <text class="row" x="165" y="449" text-anchor="end">WORKFLOWS</text>
+  <rect class="band" x="180" y="422" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="430" width="190" height="28" rx="6"/>
+  <text x="204" y="449"><tspan class="name">graphs</tspan><tspan class="desc" dx="8">the team graph</tspan></text>
+  <rect class="chip" x="394" y="430" width="190" height="28" rx="6"/>
+  <text x="406" y="449"><tspan class="name">sim</tspan><tspan class="desc" dx="8">simulated days</tspan></text>
+  <rect class="chip" x="596" y="430" width="192" height="28" rx="6"/>
+  <text x="608" y="449"><tspan class="name">management</tspan><tspan class="desc" dx="8">versions, limits</tspan></text>
+  <text class="row" x="165" y="505" text-anchor="end">SCORECARDS</text>
+  <rect class="band" x="180" y="478" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="486" width="290" height="28" rx="6"/>
+  <text x="204" y="505"><tspan class="name">scorecards</tspan><tspan class="desc" dx="8">metrics, canary decisions</tspan></text>
+  <text class="row" x="165" y="561" text-anchor="end">AGENTS AND CHECKS</text>
+  <rect class="band" x="180" y="534" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="542" width="190" height="28" rx="6"/>
+  <text x="204" y="561"><tspan class="name">agents</tspan><tspan class="desc" dx="8">specs, versions</tspan></text>
+  <rect class="chip" x="394" y="542" width="190" height="28" rx="6"/>
+  <text x="406" y="561"><tspan class="name">grading</tspan><tspan class="desc" dx="8">judges, rubrics</tspan></text>
+  <rect class="chip" x="596" y="542" width="192" height="28" rx="6"/>
+  <text x="608" y="561"><tspan class="name">guardrails</tspan><tspan class="desc" dx="8">screen, replies</tspan></text>
+  <text class="row" x="165" y="617" text-anchor="end">TOOLS</text>
+  <rect class="band" x="180" y="590" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="598" width="290" height="28" rx="6"/>
+  <text x="204" y="617"><tspan class="name">tools</tspan><tspan class="desc" dx="8">catalog and permissions</tspan></text>
+  <text class="row" x="165" y="673" text-anchor="end">STORE AND KNOWLEDGE</text>
+  <rect class="band" x="180" y="646" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="654" width="190" height="28" rx="6"/>
+  <text x="204" y="673"><tspan class="name">retail</tspan><tspan class="desc" dx="8">τ³ store rules</tspan></text>
+  <rect class="chip" x="394" y="654" width="190" height="28" rx="6"/>
+  <text x="406" y="673"><tspan class="name">retrieval</tspan><tspan class="desc" dx="8">search, citations</tspan></text>
+  <rect class="chip" x="596" y="654" width="192" height="28" rx="6"/>
+  <text x="608" y="673"><tspan class="name">analytics</tspan><tspan class="desc" dx="8">read-only SQL</tspan></text>
+  <text class="row" x="165" y="729" text-anchor="end">INTERFACES</text>
+  <rect class="band-key" x="180" y="702" width="620" height="44" rx="8"/>
+  <rect class="chip-key" x="192" y="710" width="290" height="28" rx="6"/>
+  <text x="204" y="729"><tspan class="name">ports</tspan><tspan class="desc" dx="8">Protocols the core depends on</tspan></text>
+  <text class="row" x="165" y="785" text-anchor="end">CONFIGURATION</text>
+  <rect class="band" x="180" y="758" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="766" width="290" height="28" rx="6"/>
+  <text x="204" y="785"><tspan class="name">config</tspan><tspan class="desc" dx="8">models, budgets, canaries</tspan></text>
+  <text class="row" x="165" y="841" text-anchor="end">DOMAIN</text>
+  <rect class="band" x="180" y="814" width="620" height="44" rx="8"/>
+  <rect class="chip" x="192" y="822" width="290" height="28" rx="6"/>
+  <text x="204" y="841"><tspan class="name">domain</tspan><tspan class="desc" dx="8">pure types, no I/O</tspan></text>
+  <path class="impl" d="M800 388 H836 V724 H804" marker-end="url(#arrow-teal)"/>
+  <text class="note-teal" x="846" y="548">implement</text>
+  <text class="note" x="846" y="564">the interfaces</text>
+  <line class="edge" x1="940" y1="40" x2="940" y2="854" marker-end="url(#arrow)"/>
+  <text class="note" x="958" y="447" text-anchor="middle" transform="rotate(-90 958 447)">imports only point downward</text>
+</svg>

@@ -1,0 +1,22 @@
+# What the QA reviewer checks in the proposals Insights makes.
+agent = "insights"
+version = 1
+
+[[criteria]]
+id = "grounded"
+title = "Grounded in the evidence"
+question = "Does each proposal rest on evidence from the work it was given (the incident, tickets, metrics), without inventing facts?"
+unknown = "There are no proposals."
+
+[[criteria]]
+id = "actionable"
+title = "Actionable"
+question = "Does each proposal say concretely what to change, so a person can approve or reject it as written?"
+unknown = "There are no proposals."
+
+[[criteria]]
+id = "customer_safe"
+title = "Safe for customers"
+question = "Do drafted articles promise nothing beyond current policy and leave out internal details such as work items, queries and agent names?"
+unknown = "Nothing was drafted for customers."
+safety = true

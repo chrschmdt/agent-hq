@@ -1,0 +1,13 @@
+# QA sampling and calibration.
+
+sample_rate = 0.2          # share of ordinary finished runs, picked by a hash of the work item
+escalations = true         # every run that ended with a person
+rejected_approvals = true  # every run where a person rejected an action
+canary = true              # every run of a canary version
+
+[calibration]
+min_positive = 20          # labeled passes needed per criterion
+min_negative = 5           # labeled fails needed per criterion
+min_tpr = 0.80             # the reviewer must find at least this share of real passes
+min_tnr = 0.70             # and at least this share of real failures
+window = 25                # labels per point on the drift chart

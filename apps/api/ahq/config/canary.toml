@@ -1,0 +1,26 @@
+# Canary rules (Wilson lower bound, 95%) and eval gate thresholds.
+
+default_pct = 20          # share of the agent's new work the canary takes
+min_runs = 6              # finished canary runs before any decision
+promote_after = 30        # finished canary runs with no reason to roll back
+auto_promote = true
+baseline_runs = 50        # live runs compared, when too few ran since the canary started
+
+[rollback]
+escalation_increase = 0.15
+error_increase = 0.10
+rejection_increase = 0.20
+cost_ratio = 1.5
+qa_drop = 0.10            # only criteria whose reviewer is calibrated count
+escalation_ceiling = 0.5  # while live has too few runs to compare with, a canary above these is rolled back anyway
+error_ceiling = 0.3
+
+[gate]
+score_drop = 0.10         # the candidate may score at most this much below the live version
+cost_ratio = 1.5
+
+[gate.suites]
+dispatcher = { suite = "dispatcher", cases = 40, trials = 1 }
+support = { suite = "tau3", cases = 3, trials = 1 }
+ops = { suite = "scenario", cases = 1, trials = 1 }
+insights = { suite = "scenario", cases = 1, trials = 1 }

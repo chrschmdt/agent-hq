@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" role="img" aria-label="Sequence of one unit of work. The operator submits work, the api records it and enqueues a start job, and the first function invocation runs the graph until it pauses for approval, saving a checkpoint. Later the operator decides, a resume job is enqueued, and a second invocation loads the checkpoint and finishes.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#f5f5f4;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --teal-ink:#134e4a;
+          --stone:#a8a29e; --stone-bg:#fafaf9;
+          --amber:#d97706; --amber-bg:#fffbeb; --amber-ink:#78350f; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1f1c1a;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --teal-ink:#ccfbf1;
+            --stone:#78716c; --stone-bg:#211e1c;
+            --amber:#fbbf24; --amber-bg:#2e1f06; --amber-ink:#fef3c7; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .head-title { font-size: 13px; font-weight: 600; }
+    .svc { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .svc-t { fill: var(--teal-ink); }
+    .store { fill: var(--stone-bg); stroke: var(--stone); stroke-width: 1.5; }
+    .store-t { fill: var(--ink); }
+    .person { fill: var(--amber-bg); stroke: var(--amber); stroke-width: 1.5; }
+    .person-t { fill: var(--amber-ink); }
+    .life { stroke: var(--stone); stroke-dasharray: 3 5; }
+    .act { fill: var(--teal-bg); stroke: var(--teal); }
+    .msg { fill: none; stroke: var(--ink2); stroke-width: 1.4; }
+    .head { fill: var(--ink2); }
+    .label { font-size: 11.5px; fill: var(--ink); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+    .note { fill: var(--bg); stroke: var(--teal); stroke-dasharray: 4 3; }
+    .note-t { font-size: 11.5px; fill: var(--ink2); }
+    .tag { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; fill: var(--teal); }
+    .band { fill: var(--band); }
+    .band-t { font-size: 11.5px; fill: var(--muted); font-style: italic; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+  </defs>
+
+  <rect class="panel" x="0.5" y="0.5" width="999" height="759" rx="16"/>
+
+  <rect class="person" x="40" y="28" width="140" height="42" rx="9"/>
+  <text class="head-title person-t" x="110" y="54" text-anchor="middle">Operator</text>
+  <rect class="svc" x="230" y="28" width="140" height="42" rx="9"/>
+  <text class="head-title svc-t" x="300" y="54" text-anchor="middle">HTTP api</text>
+  <rect class="store" x="420" y="28" width="140" height="42" rx="9"/>
+  <text class="head-title store-t" x="490" y="54" text-anchor="middle">Vercel Queues</text>
+  <rect class="svc" x="610" y="28" width="140" height="42" rx="9"/>
+  <text class="head-title svc-t" x="680" y="54" text-anchor="middle">Segment runner</text>
+  <path class="store" d="M810 34 V64 A70 6 0 0 0 950 64 V34"/>
+  <ellipse class="store" cx="880" cy="34" rx="70" ry="6"/>
+  <text class="head-title store-t" x="880" y="58" text-anchor="middle">Neon Postgres</text>
+
+  <line class="life" x1="110" y1="72" x2="110" y2="736"/>
+  <line class="life" x1="300" y1="72" x2="300" y2="736"/>
+  <line class="life" x1="490" y1="72" x2="490" y2="736"/>
+  <line class="life" x1="680" y1="72" x2="680" y2="736"/>
+  <line class="life" x1="880" y1="72" x2="880" y2="736"/>
+
+  <rect class="act" x="672" y="222" width="16" height="190" rx="3"/>
+  <text class="tag" x="662" y="244" text-anchor="end">INVOCATION 1</text>
+  <rect class="act" x="672" y="604" width="16" height="92" rx="3"/>
+  <text class="tag" x="662" y="626" text-anchor="end">INVOCATION 2</text>
+
+  <line class="msg" x1="110" y1="110" x2="298" y2="110" marker-end="url(#arrow)"/>
+  <text class="label mono" x="205" y="102" text-anchor="middle">POST /api/work</text>
+
+  <line class="msg" x1="300" y1="144" x2="878" y2="144" marker-end="url(#arrow)"/>
+  <text class="label" x="590" y="136" text-anchor="middle">work item + work.created event</text>
+
+  <line class="msg" x1="300" y1="178" x2="488" y2="178" marker-end="url(#arrow)"/>
+  <text class="label" x="395" y="170" text-anchor="middle">start job</text>
+
+  <line class="msg" x1="490" y1="222" x2="670" y2="222" marker-end="url(#arrow)"/>
+  <text class="label" x="580" y="214" text-anchor="middle">deliver</text>
+
+  <line class="msg" x1="688" y1="256" x2="878" y2="256" marker-end="url(#arrow)"/>
+  <text class="label" x="783" y="248" text-anchor="middle">take lease, read checkpoint</text>
+
+  <rect class="note" x="700" y="272" width="168" height="98" rx="8"/>
+  <text class="note-t" x="714" y="294">greet: model call</text>
+  <text class="note-t" x="714" y="316">echo: MCP tool call</text>
+  <text class="note-t" x="714" y="338">approve: <tspan class="mono">interrupt()</tspan></text>
+  <text class="note-t" x="714" y="360">the graph pauses here</text>
+
+  <line class="msg" x1="688" y1="394" x2="878" y2="394" marker-end="url(#arrow)"/>
+  <text class="label" x="783" y="386" text-anchor="middle">checkpoint, approval, waiting</text>
+
+  <rect class="band" x="20" y="436" width="960" height="40" rx="6"/>
+  <text class="band-t" x="500" y="461" text-anchor="middle">no function runs while the graph waits: minutes or hours pass, state stays in Postgres</text>
+
+  <line class="msg" x1="110" y1="508" x2="298" y2="508" marker-end="url(#arrow)"/>
+  <text class="label mono" x="205" y="500" text-anchor="middle">POST decision</text>
+
+  <line class="msg" x1="300" y1="542" x2="878" y2="542" marker-end="url(#arrow)"/>
+  <text class="label" x="590" y="534" text-anchor="middle">decision + approval.decided event</text>
+
+  <line class="msg" x1="300" y1="576" x2="488" y2="576" marker-end="url(#arrow)"/>
+  <text class="label" x="395" y="568" text-anchor="middle">resume job</text>
+
+  <line class="msg" x1="490" y1="604" x2="670" y2="604" marker-end="url(#arrow)"/>
+  <text class="label" x="580" y="596" text-anchor="middle">deliver</text>
+
+  <line class="msg" x1="688" y1="640" x2="878" y2="640" marker-end="url(#arrow)"/>
+  <text class="label mono" x="783" y="632" text-anchor="middle">Command(resume=...)</text>
+
+  <line class="msg" x1="688" y1="678" x2="878" y2="678" marker-end="url(#arrow)"/>
+  <text class="label" x="783" y="670" text-anchor="middle">done + work.completed event</text>
+</svg>

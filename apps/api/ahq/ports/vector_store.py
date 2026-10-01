@@ -1,0 +1,36 @@
+from __future__ import annotations
+
+from collections.abc import Sequence
+from typing import Any, Protocol
+
+from ahq.domain import AhqError
+
+type Json = dict[str, Any]
+
+
+class VectorStoreError(AhqError):
+    pass
+
+
+class VectorStore(Protocol):
+    async def collection_names(self) -> list[str]: ...
+
+    async def collection(self, name: str) -> Json | None: ...
+
+    async def create_collection(self, name: str, config: Json) -> None: ...
+
+    async def delete_collection(self, name: str) -> None: ...
+
+    async def create_payload_index(self, name: str, field: str, schema: str) -> None: ...
+
+    async def upsert(self, name: str, points: Sequence[Json]) -> None: ...
+
+    async def set_payload(self, name: str, payload: Json, where: Json) -> None: ...
+
+    async def delete_points(self, name: str, where: Json) -> None: ...
+
+    async def count(self, name: str) -> int: ...
+
+    async def query(self, name: str, request: Json) -> list[Json]: ...
+
+    async def close(self) -> None: ...

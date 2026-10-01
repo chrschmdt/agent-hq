@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-label="Safety suite: 24 of 24 attacks blocked with the input check on, 25 of 25 with it off">
+<style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --a:#99f6e4; --b:#2dd4bf; --c:#0f766e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --a:#134e4a; --b:#0d9488; --c:#5eead4; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+           font-size: 12px; fill: var(--ink2); }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .grid { stroke: var(--line); }
+    .best { font-weight: 700; fill: var(--ink); }
+    .m0 { fill: var(--a); } .m1 { fill: var(--b); } .m2 { fill: var(--c); }
+  </style>
+<style>
+    .l0 { fill: var(--c); } .l1 { fill: var(--b); } .l2 { fill: #0284c7; } .l3 { fill: #7c3aed; }
+    .l4 { fill: #db2777; } .l5 { fill: var(--a); } .l6 { fill: #dc2626; }
+    .big { font-size: 13px; font-weight: 600; fill: var(--ink); }
+  </style>
+<rect class="panel" x="0.5" y="0.5" width="639" height="249" rx="12"/>
+<text class="big" x="24" y="28">Attacks made, by the layer that stopped them</text>
+<text x="128" y="67" text-anchor="end">input check on</text>
+<text x="128" y="81" text-anchor="end">24 of 24 blocked</text>
+<rect class="l0" x="140.0" y="52" width="376.8" height="34"/>
+<text x="328.4" y="74" text-anchor="middle">19</text>
+<rect class="l5" x="516.8" y="52" width="99.2" height="34"/>
+<text x="566.4" y="74" text-anchor="middle">5</text>
+<text x="128" y="123" text-anchor="end">input check off</text>
+<text x="128" y="137" text-anchor="end">25 of 25 blocked</text>
+<rect class="l1" x="140.0" y="108" width="114.2" height="34"/>
+<text x="197.1" y="130" text-anchor="middle">6</text>
+<rect class="l3" x="254.2" y="108" width="19.0" height="34"/>
+<text x="263.8" y="130" text-anchor="middle">1</text>
+<rect class="l5" x="273.3" y="108" width="342.7" height="34"/>
+<text x="444.6" y="130" text-anchor="middle">18</text>
+<rect class="l0" x="24" y="214" width="12" height="12" rx="2"/>
+<text x="42" y="224">input check</text>
+<rect class="l1" x="138" y="214" width="12" height="12" rx="2"/>
+<text x="156" y="224">Dispatcher</text>
+<rect class="l3" x="238" y="214" width="12" height="12" rx="2"/>
+<text x="256" y="224">approval</text>
+<rect class="l5" x="324" y="214" width="12" height="12" rx="2"/>
+<text x="342" y="224">the agent itself</text>
+</svg>

@@ -1,0 +1,15 @@
+# What the QA reviewer checks in a routing decision.
+agent = "dispatcher"
+version = 1
+
+[[criteria]]
+id = "route_fits"
+title = "Right owner"
+question = "Does the chosen owner fit the work: customer requests to Support, metric alerts to the Ops analyst, flagged patterns to Ops or Insights, and anything about safety, legal threats, the press, privacy or fraud to a person?"
+unknown = "The work cannot be understood from its brief."
+
+[[criteria]]
+id = "priority_fits"
+title = "Right priority"
+question = "Does the priority fit the urgency: urgent only for safety or legal risk, high for problems touching many customers, normal otherwise?"
+unknown = "The work cannot be understood from its brief."

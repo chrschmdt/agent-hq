@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-label="How Support handles one turn of a ticket. A customer message enters the team graph, which routes it to Support. Support's tool loop calls the model with its tools and reply schema; if the model asks for tools, each call is authorized with facts from the store; calls that pay back more than the limit pause for an operator's approval, one at a time; then the calls run through the MCP servers with a signed context, and the loop calls the model again. When the model replies instead, the reply is parsed and its citations checked, with one retry; if the model hits its limits, the ticket goes to a person. Finalize writes the reply into the ticket and queues the customer's next turn.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --stone:#a8a29e; --stone-bg:#f5f5f4; --amber:#d97706; --amber-bg:#fffbeb; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --stone:#78716c; --stone-bg:#1f1c1a; --amber:#fbbf24; --amber-bg:#2a1e05; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .lane { fill: var(--band); stroke: var(--line); }
+    .row { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; fill: var(--muted); }
+    .code { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.3; }
+    .platform { fill: var(--stone-bg); stroke: var(--stone); stroke-width: 1.2; }
+    .person { fill: var(--amber-bg); stroke: var(--amber); stroke-width: 1.3; }
+    .title { font-size: 13px; font-weight: 700; fill: var(--ink); }
+    .desc { font-size: 11.5px; fill: var(--ink2); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.4; }
+    .loop { fill: none; stroke: var(--teal); stroke-width: 1.6; }
+    .dash { fill: none; stroke: var(--ink2); stroke-width: 1.3; stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .label { font-size: 11px; fill: var(--ink2); }
+    .label-teal { font-size: 11px; font-weight: 600; fill: var(--teal); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+  </defs>
+  <rect class="panel" x="0.5" y="0.5" width="1199" height="639" rx="16"/>
+
+  <rect class="lane" x="24" y="24" width="1152" height="112" rx="12"/>
+  <text class="row" x="44" y="50">ONE TURN OF THE TEAM GRAPH</text>
+  <rect class="person" x="44" y="62" width="200" height="58" rx="10"/>
+  <text class="title" x="60" y="86">Customer writes</text>
+  <text class="desc" x="60" y="104">a job for the ticket's thread</text>
+  <rect class="code" x="304" y="62" width="200" height="58" rx="10"/>
+  <text class="title" x="320" y="86">entry</text>
+  <text class="desc" x="320" y="104">route to the ticket's owner</text>
+  <rect class="code" x="564" y="62" width="260" height="58" rx="10"/>
+  <text class="title" x="580" y="86">support</text>
+  <text class="desc" x="580" y="104">Support's tool loop, below</text>
+  <rect class="code" x="884" y="62" width="272" height="58" rx="10"/>
+  <text class="title" x="900" y="86">finalize</text>
+  <text class="desc" x="900" y="104">reply into the ticket, next customer turn</text>
+  <path class="edge" d="M244 91 H300" marker-end="url(#arrow)"/>
+  <path class="edge" d="M504 91 H560" marker-end="url(#arrow)"/>
+  <path class="edge" d="M824 91 H880" marker-end="url(#arrow)"/>
+  <path class="dash" d="M694 120 V156" marker-end="url(#arrow)"/>
+
+  <rect class="lane" x="24" y="160" width="1152" height="330" rx="12"/>
+  <text class="row" x="44" y="186">SUPPORT'S TOOL LOOP</text>
+
+  <rect class="code" x="44" y="206" width="230" height="86" rx="10"/>
+  <text class="title" x="60" y="230">call_model</text>
+  <text class="desc" x="60" y="250">prompt, tools, reply schema;</text>
+  <text class="desc" x="60" y="266">stops at 25 calls or $0.50</text>
+  <text class="mono" x="60" y="283">ChatModels.agent_model</text>
+
+  <rect class="code" x="338" y="206" width="230" height="86" rx="10"/>
+  <text class="title" x="354" y="230">authorize</text>
+  <text class="desc" x="354" y="250">decide each call with facts:</text>
+  <text class="desc" x="354" y="266">grant, identity, owner, refund</text>
+  <text class="mono" x="354" y="283">ToolExecutor.assess</text>
+
+  <rect class="code" x="632" y="206" width="230" height="86" rx="10"/>
+  <text class="title" x="648" y="230">approval_gate</text>
+  <text class="desc" x="648" y="250">one interrupt() per gated call;</text>
+  <text class="desc" x="648" y="266">the segment ends and waits</text>
+  <text class="mono" x="648" y="283">ApprovalResume</text>
+
+  <rect class="code" x="926" y="206" width="230" height="86" rx="10"/>
+  <text class="title" x="942" y="230">execute_tools</text>
+  <text class="desc" x="942" y="250">the only side effects: reads</text>
+  <text class="desc" x="942" y="266">together, writes one by one</text>
+  <text class="mono" x="942" y="283">ctx signed per call</text>
+
+  <path class="edge" d="M274 249 H334" marker-end="url(#arrow)"/>
+  <text class="label" x="304" y="241" text-anchor="middle">tool calls</text>
+  <path class="edge" d="M568 249 H628" marker-end="url(#arrow)"/>
+  <text class="label" x="598" y="241" text-anchor="middle">needs one</text>
+  <path class="edge" d="M862 249 H922" marker-end="url(#arrow)"/>
+  <path class="edge" d="M453 292 V318 H1010 V296" marker-end="url(#arrow)"/>
+  <text class="label" x="612" y="312">nothing to approve</text>
+  <path class="loop" d="M1070 292 V340 Q1070 352 1058 352 H171 Q159 352 159 340 V296" marker-end="url(#arrow-teal)"/>
+  <text class="label-teal" x="784" y="346">tool results, then the model again</text>
+
+  <rect class="code" x="44" y="380" width="230" height="86" rx="10"/>
+  <text class="title" x="60" y="404">emit_output</text>
+  <text class="desc" x="60" y="424">parse the typed reply; check</text>
+  <text class="desc" x="60" y="440">citations, one retry on failure</text>
+  <text class="mono" x="60" y="457">SupportTurn</text>
+
+  <rect class="code" x="338" y="380" width="230" height="86" rx="10"/>
+  <text class="title" x="354" y="404">give_up</text>
+  <text class="desc" x="354" y="424">a limit was hit: the ticket</text>
+  <text class="desc" x="354" y="440">goes to a person</text>
+  <text class="mono" x="354" y="457">stop_reason</text>
+
+  <path class="edge" d="M100 292 V376" marker-end="url(#arrow)"/>
+  <text class="label" x="106" y="370">a reply</text>
+  <path class="edge" d="M230 292 V326 Q230 336 240 336 H443 Q453 336 453 346 V376" marker-end="url(#arrow)"/>
+  <text class="label" x="459" y="370">a limit</text>
+  <text class="label" x="44" y="483">Either way the loop ends, and finalize runs next.</text>
+
+  <rect class="lane" x="24" y="510" width="1152" height="106" rx="12"/>
+  <text class="row" x="44" y="536">OUTSIDE THE GRAPH</text>
+  <text class="label" x="44" y="562">Pauses and resumes happen between segments,</text>
+  <text class="label" x="44" y="578">so an approval can arrive hours later. Nodes</text>
+  <text class="label" x="44" y="594">re-run from the top when they resume, so only</text>
+  <text class="label" x="44" y="610">execute_tools changes anything.</text>
+  <rect class="platform" x="338" y="548" width="230" height="52" rx="10"/>
+  <text class="title" x="354" y="570">The store</text>
+  <text class="desc" x="354" y="588">whose order, what goes back</text>
+  <rect class="person" x="632" y="548" width="230" height="52" rx="10"/>
+  <text class="title" x="648" y="570">Approvals inbox</text>
+  <text class="desc" x="648" y="588">approve, edit or reject</text>
+  <rect class="platform" x="926" y="548" width="230" height="52" rx="10"/>
+  <text class="title" x="942" y="570">MCP servers</text>
+  <text class="desc" x="942" y="588">orders and knowledge</text>
+  <path class="dash" d="M568 574 H600 V272 H572" marker-end="url(#arrow)"/>
+  <path class="dash" d="M747 296 V544" marker-end="url(#arrow)"/>
+  <path class="dash" d="M1120 296 V544" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-label="AHQ system overview: the control room and api run as two services in one Vercel project. The api enqueues work on Vercel Queues, a segment runner executes LangGraph graphs that call MCP servers, and state lives in Neon Postgres, knowledge in Qdrant, and every model call goes through OpenRouter.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --teal-ink:#134e4a;
+          --stone:#a8a29e; --stone-bg:#fafaf9;
+          --indigo:#6366f1; --indigo-bg:#eef2ff; --indigo-ink:#312e81;
+          --amber:#d97706; --amber-bg:#fffbeb; --amber-ink:#78350f; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --teal-ink:#ccfbf1;
+            --stone:#78716c; --stone-bg:#211e1c;
+            --indigo:#818cf8; --indigo-bg:#1b1a3a; --indigo-ink:#e0e7ff;
+            --amber:#fbbf24; --amber-bg:#2e1f06; --amber-ink:#fef3c7; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .title { font-size: 14px; font-weight: 600; fill: var(--ink); }
+    .sub { font-size: 11.5px; fill: var(--muted); }
+    .group { fill: none; stroke: var(--stone); stroke-dasharray: 5 5; }
+    .group-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+    .svc { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .chip { fill: var(--bg); stroke: var(--teal); }
+    .svc-title { font-size: 14px; font-weight: 600; fill: var(--teal-ink); }
+    .store { fill: var(--stone-bg); stroke: var(--stone); stroke-width: 1.5; }
+    .ext { fill: var(--indigo-bg); stroke: var(--indigo); stroke-width: 1.5; }
+    .ext-title { font-size: 14px; font-weight: 600; fill: var(--indigo-ink); }
+    .person { fill: var(--amber-bg); stroke: var(--amber); stroke-width: 1.5; }
+    .person-title { font-size: 14px; font-weight: 600; fill: var(--amber-ink); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.5; }
+    .dash { stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .label { font-size: 11px; fill: var(--ink2); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+    .glyph { fill: var(--stone); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+  </defs>
+
+  <rect class="panel" x="0.5" y="0.5" width="999" height="619" rx="16"/>
+
+  <rect class="group" x="280" y="36" width="360" height="514" rx="14"/>
+  <text class="group-label" x="296" y="56">VERCEL PROJECT  ·  AHQ</text>
+
+  <rect class="person" x="40" y="66" width="180" height="60" rx="10"/>
+  <text class="person-title" x="130" y="92" text-anchor="middle">Operator</text>
+  <text class="sub" x="130" y="110" text-anchor="middle">browser</text>
+
+  <rect class="svc" x="300" y="66" width="320" height="60" rx="10"/>
+  <text class="svc-title" x="460" y="92" text-anchor="middle">Control room</text>
+  <text class="sub" x="460" y="110" text-anchor="middle">web service  ·  Next.js 16</text>
+
+  <rect class="svc" x="300" y="166" width="320" height="364" rx="12"/>
+  <text class="svc-title" x="320" y="192">api service</text>
+  <text class="sub" x="320" y="210">FastAPI  ·  Python 3.13</text>
+
+  <rect class="chip" x="320" y="228" width="280" height="52" rx="8"/>
+  <text class="title" x="460" y="250" text-anchor="middle">HTTP api</text>
+  <text class="sub" x="460" y="268" text-anchor="middle">commands, reads, SSE stream</text>
+
+  <rect class="chip" x="320" y="338" width="280" height="52" rx="8"/>
+  <text class="title" x="460" y="360" text-anchor="middle">Segment runner</text>
+  <text class="sub" x="460" y="378" text-anchor="middle">LangGraph, checkpointed in Postgres</text>
+
+  <rect class="chip" x="320" y="448" width="280" height="52" rx="8"/>
+  <text class="title" x="460" y="470" text-anchor="middle">MCP servers</text>
+  <text class="sub" x="460" y="488" text-anchor="middle">stateless, bearer token per server</text>
+
+  <rect class="store" x="40" y="228" width="180" height="162" rx="10"/>
+  <rect class="glyph" x="112" y="274" width="36" height="5" rx="2.5"/>
+  <rect class="glyph" x="112" y="283" width="36" height="5" rx="2.5"/>
+  <rect class="glyph" x="112" y="292" width="36" height="5" rx="2.5"/>
+  <text class="title" x="130" y="324" text-anchor="middle">Vercel Queues</text>
+  <text class="sub" x="130" y="342" text-anchor="middle">at-least-once delivery,</text>
+  <text class="sub" x="130" y="357" text-anchor="middle">delays, retries</text>
+
+  <rect class="ext" x="40" y="448" width="180" height="52" rx="10"/>
+  <text class="ext-title" x="130" y="470" text-anchor="middle">Claude Desktop</text>
+  <text class="sub" x="130" y="488" text-anchor="middle">or any MCP client</text>
+
+  <path class="store" d="M740 184 V232 A110 8 0 0 0 960 232 V184"/>
+  <ellipse class="store" cx="850" cy="184" rx="110" ry="8"/>
+  <text class="title" x="850" y="212" text-anchor="middle">Neon Postgres</text>
+  <text class="sub" x="850" y="229" text-anchor="middle">state, events, checkpoints</text>
+
+  <path class="store" d="M740 272 V320 A110 8 0 0 0 960 320 V272"/>
+  <ellipse class="store" cx="850" cy="272" rx="110" ry="8"/>
+  <text class="title" x="850" y="300" text-anchor="middle">Qdrant Cloud</text>
+  <text class="sub" x="850" y="317" text-anchor="middle">knowledge base</text>
+
+  <rect class="ext" x="740" y="352" width="220" height="56" rx="10"/>
+  <text class="ext-title" x="850" y="376" text-anchor="middle">OpenRouter</text>
+  <text class="sub" x="850" y="394" text-anchor="middle">Claude, OpenAI, Voyage</text>
+
+  <rect class="ext" x="740" y="432" width="220" height="56" rx="10"/>
+  <text class="ext-title" x="850" y="456" text-anchor="middle">LangSmith</text>
+  <text class="sub" x="850" y="474" text-anchor="middle">sampled traces</text>
+
+  <line class="edge" x1="220" y1="96" x2="298" y2="96" marker-end="url(#arrow)"/>
+  <text class="label" x="250" y="88" text-anchor="middle">HTTPS</text>
+
+  <line class="edge" x1="460" y1="128" x2="460" y2="226" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text class="label" x="472" y="152">api calls, SSE</text>
+
+  <line class="edge" x1="320" y1="254" x2="222" y2="254" marker-end="url(#arrow)"/>
+  <text class="label" x="250" y="246" text-anchor="middle">enqueue</text>
+
+  <line class="edge" x1="220" y1="364" x2="318" y2="364" marker-end="url(#arrow)"/>
+  <text class="label" x="250" y="356" text-anchor="middle">deliver</text>
+
+  <line class="edge" x1="460" y1="390" x2="460" y2="446" marker-end="url(#arrow)"/>
+  <text class="label" x="472" y="422">tool calls</text>
+
+  <line class="edge dash" x1="220" y1="474" x2="318" y2="474" marker-end="url(#arrow)"/>
+  <text class="label" x="250" y="466" text-anchor="middle">MCP</text>
+
+  <line class="edge" x1="620" y1="212" x2="738" y2="212" marker-end="url(#arrow)"/>
+  <text class="label" x="690" y="204" text-anchor="middle">SQL</text>
+  <line class="edge" x1="620" y1="300" x2="738" y2="300" marker-end="url(#arrow)"/>
+  <text class="label" x="690" y="292" text-anchor="middle">hybrid search</text>
+  <line class="edge" x1="620" y1="380" x2="738" y2="380" marker-end="url(#arrow)"/>
+  <text class="label" x="690" y="372" text-anchor="middle">model calls</text>
+  <line class="edge dash" x1="620" y1="460" x2="738" y2="460" marker-end="url(#arrow)"/>
+  <text class="label" x="690" y="452" text-anchor="middle">traces</text>
+
+  <rect class="svc" x="40" y="578" width="14" height="14" rx="3"/>
+  <text class="sub" x="62" y="589">AHQ code</text>
+  <rect class="store" x="160" y="578" width="14" height="14" rx="3"/>
+  <text class="sub" x="182" y="589">managed platform and data</text>
+  <rect class="ext" x="370" y="578" width="14" height="14" rx="3"/>
+  <text class="sub" x="392" y="589">external service</text>
+  <rect class="person" x="520" y="578" width="14" height="14" rx="3"/>
+  <text class="sub" x="542" y="589">person</text>
+  <line class="edge dash" x1="620" y1="585" x2="660" y2="585"/>
+  <text class="sub" x="668" y="589">optional or sampled</text>
+</svg>

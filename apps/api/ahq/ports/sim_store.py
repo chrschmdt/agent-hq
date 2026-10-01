@@ -1,0 +1,29 @@
+from __future__ import annotations
+
+from collections.abc import Sequence
+from datetime import datetime
+from typing import Protocol
+
+from ahq.domain.sim import ScriptEntry, SimRun, SimStatus
+
+
+class SimStore(Protocol):
+    async def create(self, run: SimRun, script: Sequence[ScriptEntry]) -> None: ...
+
+    async def get(self, run_id: str) -> SimRun | None: ...
+
+    async def latest(self) -> SimRun | None: ...
+
+    async def runs(self, limit: int = 50) -> list[SimRun]: ...
+
+    async def due(self, run_id: str, *, after: datetime, until: datetime) -> list[ScriptEntry]: ...
+
+    async def advance(self, run_id: str, *, from_tick: int, sim_now: datetime, status: SimStatus) -> SimRun | None: ...
+
+    async def set_status(self, run_id: str, status: SimStatus) -> SimRun: ...
+
+
+class Baseline(Protocol):
+    async def capture(self) -> None: ...
+
+    async def restore(self) -> None: ...

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="Retrieval quality by search mode: recall at 5, MRR and nDCG at 10">
+<style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --a:#99f6e4; --b:#2dd4bf; --c:#0f766e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --a:#134e4a; --b:#0d9488; --c:#5eead4; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+           font-size: 12px; fill: var(--ink2); }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .grid { stroke: var(--line); }
+    .best { font-weight: 700; fill: var(--ink); }
+    .m0 { fill: var(--a); } .m1 { fill: var(--b); } .m2 { fill: var(--c); }
+  </style>
+<rect class="panel" x="0.5" y="0.5" width="639" height="319" rx="12"/>
+<line class="grid" x1="56" y1="248.0" x2="616" y2="248.0"/>
+<text x="48" y="252.0" text-anchor="end">0.00</text>
+<line class="grid" x1="56" y1="193.0" x2="616" y2="193.0"/>
+<text x="48" y="197.0" text-anchor="end">0.25</text>
+<line class="grid" x1="56" y1="138.0" x2="616" y2="138.0"/>
+<text x="48" y="142.0" text-anchor="end">0.50</text>
+<line class="grid" x1="56" y1="83.0" x2="616" y2="83.0"/>
+<text x="48" y="87.0" text-anchor="end">0.75</text>
+<line class="grid" x1="56" y1="28.0" x2="616" y2="28.0"/>
+<text x="48" y="32.0" text-anchor="end">1.00</text>
+<rect class="m0" x="72.8" y="30.0" width="31.1" height="218.0" rx="2"/>
+<rect class="m1" x="107.9" y="50.2" width="31.1" height="197.8" rx="2"/>
+<rect class="m2" x="143.0" y="45.2" width="31.1" height="202.8" rx="2"/>
+<text x="125.5" y="268" text-anchor="middle">dense</text>
+<rect class="m0" x="212.8" y="54.4" width="31.1" height="193.6" rx="2"/>
+<rect class="m1" x="247.9" y="93.6" width="31.1" height="154.4" rx="2"/>
+<rect class="m2" x="283.0" y="80.4" width="31.1" height="167.6" rx="2"/>
+<text x="265.5" y="268" text-anchor="middle">bm25</text>
+<rect class="m0" x="352.8" y="36.1" width="31.1" height="211.9" rx="2"/>
+<rect class="m1" x="387.9" y="65.6" width="31.1" height="182.4" rx="2"/>
+<rect class="m2" x="423.0" y="56.2" width="31.1" height="191.8" rx="2"/>
+<text x="405.5" y="268" text-anchor="middle">hybrid</text>
+<rect class="m0" x="492.8" y="30.0" width="31.1" height="218.0" rx="2"/>
+<rect class="m1" x="527.9" y="30.0" width="31.1" height="218.0" rx="2"/>
+<rect class="m2" x="563.0" y="31.5" width="31.1" height="216.5" rx="2"/>
+<text class="best" x="545.5" y="268" text-anchor="middle">hybrid + rerank</text>
+<rect class="m0" x="56" y="290" width="12" height="12" rx="2"/>
+<text x="74" y="300">recall@5</text>
+<rect class="m1" x="166" y="290" width="12" height="12" rx="2"/>
+<text x="184" y="300">MRR</text>
+<rect class="m2" x="276" y="290" width="12" height="12" rx="2"/>
+<text x="294" y="300">nDCG@10</text>
+</svg>

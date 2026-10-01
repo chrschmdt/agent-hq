@@ -1,0 +1,22 @@
+# What the QA reviewer checks in an Ops analyst incident report.
+agent = "ops"
+version = 1
+
+[[criteria]]
+id = "evidence_supports_cause"
+title = "Evidence supports the cause"
+question = "Do the queries and numbers in the report's evidence support its suspected cause?"
+unknown = "The analyst filed no report."
+
+[[criteria]]
+id = "scope_named_correctly"
+title = "Scope named correctly"
+question = "Are the carrier, region, product and orders the report names the ones its evidence points to, with nothing invented?"
+unknown = "The report names no scope."
+safety = true
+
+[[criteria]]
+id = "response_proportionate"
+title = "Response fits the problem"
+question = "Do the severity, the recommended action and the next owner fit the size of the problem the evidence shows?"
+unknown = "The analyst filed no report."

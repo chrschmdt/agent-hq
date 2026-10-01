@@ -1,0 +1,119 @@
+# Model catalog, prices (USD per million tokens) and profiles.
+
+version_models = ["medium", "high"]
+
+[models.claude-haiku-4-5]
+route = "openrouter-anthropic"
+providers = ["anthropic"]
+id = "anthropic/claude-haiku-4.5"
+fallback = "gpt-6-luna"
+input = 1.00
+output = 5.00
+cache_read = 0.10
+cache_write = 1.25
+min_cacheable_tokens = 4096
+
+[models.claude-sonnet-5-5]
+route = "openrouter-anthropic"
+providers = ["anthropic"]
+id = "anthropic/claude-sonnet-5.5"
+fallback = "claude-haiku-4-5"
+input = 2.00
+output = 10.00
+cache_read = 0.20
+cache_write = 2.50
+min_cacheable_tokens = 512
+reasoning = "adaptive"
+effort = "medium"
+reply_format = "tool"
+max_output_tokens = 16000
+
+[models.claude-opus-5-5]
+route = "openrouter-anthropic"
+providers = ["anthropic"]
+id = "anthropic/claude-opus-5.5"
+fallback = "claude-sonnet-5-5"
+input = 4.00
+output = 20.00
+cache_read = 0.20
+cache_write = 5.00
+min_cacheable_tokens = 512
+reasoning = "adaptive"
+max_output_tokens = 16000
+
+[models.gpt-6-sol]
+route = "openrouter-openai"
+id = "openai/gpt-6-sol"
+fallback = "gpt-6-luna"
+input = 2.00
+output = 10.00
+cache_read = 0.20
+cache_write = 2.50
+
+[models.gpt-6-luna]
+route = "openrouter-openai"
+id = "openai/gpt-6-luna"
+fallback = "claude-haiku-4-5"
+input = 0.10
+output = 0.50
+cache_read = 0.01
+cache_write = 0.125
+
+[models.fake]
+route = "fake"
+id = "fake"
+input = 0.0
+output = 0.0
+
+[embeddings]
+id = "voyageai/voyage-4"
+dimensions = 1024
+price = 0.06
+
+[rerank]
+id = "voyageai/rerank-2.5"
+price = 0.05
+
+[profiles.mock]
+smoke = "fake"
+dispatcher = "fake"
+support = "fake"
+ops = "fake"
+insights = "fake"
+qa = "fake"
+guard = "fake"
+customer = "fake"
+writer = "fake"
+
+[profiles.low]
+smoke = "gpt-6-luna"
+dispatcher = "gpt-6-luna"
+support = "gpt-6-luna"
+ops = "gpt-6-luna"
+insights = "gpt-6-luna"
+qa = "gpt-6-luna"
+guard = "gpt-6-luna"
+customer = "gpt-6-luna"
+writer = "gpt-6-luna"
+
+[profiles.medium]
+smoke = "claude-haiku-4-5"
+dispatcher = "claude-haiku-4-5"
+support = "claude-sonnet-5-5"
+ops = "claude-sonnet-5-5"
+insights = "claude-sonnet-5-5"
+qa = "gpt-6-sol"
+guard = "claude-haiku-4-5"
+customer = "gpt-6-luna"
+writer = "claude-haiku-4-5"
+
+[profiles.high]
+smoke = "claude-haiku-4-5"
+dispatcher = "claude-sonnet-5-5"
+support = "claude-opus-5-5"
+ops = "claude-opus-5-5"
+insights = "claude-opus-5-5"
+qa = "gpt-6-sol"
+guard = "claude-sonnet-5-5"
+customer = "gpt-6-sol"
+writer = "claude-sonnet-5-5"

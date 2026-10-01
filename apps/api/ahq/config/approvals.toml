@@ -1,0 +1,2 @@
+# Refunds above this amount need approval.
+refund_limit_usd = 100.0

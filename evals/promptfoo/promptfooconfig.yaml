@@ -1,0 +1,17 @@
+# Single-turn prompt checks. Run with `make eval-prompts`.
+description: AHQ agent prompts
+
+prompts:
+  - id: file://prompts.py:render
+    label: agent prompt
+
+providers:
+  - id: openrouter:openai/gpt-6-luna
+    config:
+      temperature: 0
+
+defaultTest:
+  assert:
+    - type: is-json
+
+tests: file://cases.yaml

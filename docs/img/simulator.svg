@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-label="How the simulator plays a day. Starting a run restores the store to its baseline, writes the whole day as a script from the seed, and queues tick 0. Each tick loads the run, skips if it is stale, applies the script entries due in the next five simulated minutes, advances the run only if it is still at that tick, and queues the next tick two seconds later. Entries open tickets, deliver parcels and ship orders, and each change is recorded as an event that the live feed streams to the control room.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --stone:#a8a29e; --stone-bg:#f5f5f4; --amber:#d97706; --amber-bg:#fffbeb; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --stone:#78716c; --stone-bg:#1f1c1a; --amber:#fbbf24; --amber-bg:#2a1e05; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .lane { fill: var(--band); stroke: var(--line); }
+    .row { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; fill: var(--muted); }
+    .code { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.3; }
+    .platform { fill: var(--stone-bg); stroke: var(--stone); stroke-width: 1.2; }
+    .person { fill: var(--amber-bg); stroke: var(--amber); stroke-width: 1.3; }
+    .title { font-size: 13px; font-weight: 700; fill: var(--ink); }
+    .desc { font-size: 11.5px; fill: var(--ink2); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.4; }
+    .loop { fill: none; stroke: var(--teal); stroke-width: 1.6; }
+    .dash { fill: none; stroke: var(--ink2); stroke-width: 1.3; stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .label { font-size: 11px; fill: var(--ink2); }
+    .label-teal { font-size: 11px; font-weight: 600; fill: var(--teal); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+  </defs>
+  <rect class="panel" x="0.5" y="0.5" width="1199" height="559" rx="16"/>
+  <rect class="lane" x="24" y="24" width="1152" height="148" rx="12"/>
+  <text class="row" x="44" y="50">START A RUN</text>
+  <rect class="person" x="44" y="66" width="176" height="88" rx="10"/>
+  <text class="title" x="58" y="90">Operator or CLI</text>
+  <text class="desc" x="58" y="109">scenario, seed, speed</text>
+  <text class="mono" x="58" y="142">POST /api/sim/start</text>
+  <rect class="code" x="268" y="66" width="196" height="88" rx="10"/>
+  <text class="title" x="282" y="90">Restore the baseline</text>
+  <text class="desc" x="282" y="109">store and world as seeded,</text>
+  <text class="desc" x="282" y="125">so every run starts equal</text>
+  <rect class="code" x="512" y="66" width="220" height="88" rx="10"/>
+  <text class="title" x="526" y="90">Write the day's script</text>
+  <text class="desc" x="526" y="109">tickets on a daily curve,</text>
+  <text class="desc" x="526" y="125">parcels arriving, orders shipping</text>
+  <rect class="platform" x="780" y="66" width="176" height="88" rx="10"/>
+  <text class="title" x="794" y="90">Postgres</text>
+  <text class="desc" x="794" y="109">the run and its script</text>
+  <text class="mono" x="794" y="142">sim_runs, sim_script</text>
+  <rect class="platform" x="1004" y="66" width="152" height="88" rx="10"/>
+  <text class="title" x="1018" y="90">Queue</text>
+  <text class="desc" x="1018" y="109">tick 0, now</text>
+  <text class="mono" x="1018" y="142">topic sim</text>
+  <path class="edge" d="M220 110 H262" marker-end="url(#arrow)"/>
+  <path class="edge" d="M464 110 H506" marker-end="url(#arrow)"/>
+  <path class="edge" d="M732 110 H774" marker-end="url(#arrow)"/>
+  <path class="edge" d="M956 110 H998" marker-end="url(#arrow)"/>
+  <rect class="lane" x="24" y="192" width="1152" height="196" rx="12"/>
+  <text class="row" x="44" y="218">EVERY TICK</text>
+  <rect class="platform" x="44" y="236" width="176" height="96" rx="10"/>
+  <text class="title" x="58" y="260">Queue delivers</text>
+  <text class="desc" x="58" y="279">tick N, at least once</text>
+  <text class="mono" x="58" y="320">SimTickJob(run, N)</text>
+  <rect class="code" x="268" y="236" width="196" height="96" rx="10"/>
+  <text class="title" x="282" y="260">Still at tick N?</text>
+  <text class="desc" x="282" y="279">stale or duplicate</text>
+  <text class="desc" x="282" y="295">deliveries stop here</text>
+  <rect class="code" x="512" y="236" width="220" height="96" rx="10"/>
+  <text class="title" x="526" y="260">Apply what is due</text>
+  <text class="desc" x="526" y="279">entries in the next 5</text>
+  <text class="desc" x="526" y="295">simulated minutes, idempotently</text>
+  <rect class="code" x="780" y="236" width="176" height="96" rx="10"/>
+  <text class="title" x="794" y="260">Advance to N+1</text>
+  <text class="desc" x="794" y="279">only if still at N:</text>
+  <text class="desc" x="794" y="295">one conditional UPDATE</text>
+  <rect class="code" x="1004" y="236" width="152" height="96" rx="10"/>
+  <text class="title" x="1018" y="260">Queue tick N+1</text>
+  <text class="desc" x="1018" y="279">2 real seconds later</text>
+  <text class="desc" x="1018" y="295">until the day ends</text>
+  <path class="edge" d="M220 284 H262" marker-end="url(#arrow)"/>
+  <path class="edge" d="M464 284 H506" marker-end="url(#arrow)"/>
+  <path class="edge" d="M732 284 H774" marker-end="url(#arrow)"/>
+  <path class="edge" d="M956 284 H998" marker-end="url(#arrow)"/>
+  <path class="loop" d="M1080 332 V366 H132 V338" marker-end="url(#arrow-teal)"/>
+  <text class="label-teal" x="150" y="358">5 simulated minutes every 2 seconds: a day in about 10 minutes</text>
+  <path class="edge" d="M1080 154 V182 H160 V230" marker-end="url(#arrow)"/>
+  <rect class="lane" x="24" y="408" width="1152" height="128" rx="12"/>
+  <text class="row" x="44" y="434">WHAT AN ENTRY CHANGES</text>
+  <rect class="code" x="44" y="448" width="250" height="72" rx="10"/>
+  <text class="title" x="58" y="472">Ticket opened</text>
+  <text class="mono" x="58" y="508">support.tickets, ticket_messages</text>
+  <rect class="code" x="314" y="448" width="250" height="72" rx="10"/>
+  <text class="title" x="328" y="472">Parcel delivered</text>
+  <text class="mono" x="328" y="508">retail.orders, retail.shipments</text>
+  <rect class="code" x="584" y="448" width="250" height="72" rx="10"/>
+  <text class="title" x="598" y="472">Order shipped</text>
+  <text class="mono" x="598" y="508">retail.orders, retail.shipments</text>
+  <rect class="platform" x="872" y="448" width="284" height="72" rx="10"/>
+  <text class="title" x="886" y="472">Event log to the live feed</text>
+  <text class="mono" x="886" y="508">ops.events, then SSE</text>
+  <text class="desc" x="58" y="491">a customer writes in</text>
+  <text class="desc" x="328" y="491">processed becomes delivered</text>
+  <text class="desc" x="598" y="491">pending becomes processed</text>
+  <text class="desc" x="886" y="491">in simulated time, to the control room</text>
+  <path class="dash" d="M622 332 V402" marker-end="url(#arrow)"/>
+  <path class="edge" d="M834 484 H866" marker-end="url(#arrow)"/>
+</svg>

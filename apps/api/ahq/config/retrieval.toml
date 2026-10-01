@@ -1,0 +1,6 @@
+# Search mode, chosen by `ahq eval retrieval`.
+mode = "hybrid_rerank"   # dense, bm25, hybrid, or hybrid_rerank
+prefetch = 50            # candidates per leg before fusion
+rerank_candidates = 20   # fused candidates the reranker reorders
+k = 5                    # passages an answer receives
+rrf_k = 60               # reciprocal rank fusion constant

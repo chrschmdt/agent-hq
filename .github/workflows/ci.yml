@@ -1,0 +1,120 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: api
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.6-pg18
+        env:
+          POSTGRES_USER: ahq
+          POSTGRES_PASSWORD: ahq
+          POSTGRES_DB: ahq_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U ahq -d ahq_test"
+          --health-interval 2s
+          --health-retries 30
+      pgbouncer:
+        image: edoburu/pgbouncer:v1.25.2-p0
+        env:
+          DATABASE_URL: postgres://ahq:ahq@postgres:5432/ahq_test
+          POOL_MODE: transaction
+          AUTH_TYPE: plain
+          LISTEN_PORT: "6432"
+          MAX_PREPARED_STATEMENTS: "0"
+        ports: ["6432:6432"]
+      qdrant:
+        image: qdrant/qdrant:v1.19.1
+        ports: ["6333:6333"]
+    env:
+      AHQ_REQUIRE_SERVICES: "1"
+      AHQ_TEST_DATABASE_URL: postgresql://ahq:ahq@localhost:5432/ahq_test
+      AHQ_TEST_POOLED_DATABASE_URL: postgresql://ahq:ahq@localhost:6432/ahq_test
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Lint and format
+        run: uv run ruff check && uv run ruff format --check
+      - name: Types
+        run: uv run basedpyright
+      - name: Import contracts
+        run: uv run lint-imports
+      - name: Tests
+        run: uv run pytest
+      - name: OpenAPI schema is current
+        run: |
+          uv run ahq openapi --output "$RUNNER_TEMP/openapi.json"
+          diff -u ../web/lib/api/openapi.json "$RUNNER_TEMP/openapi.json"
+
+  web:
+    name: web
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
+        with:
+          version: 10
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+  control-room:
+    name: control room smoke
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+        working-directory: apps/api
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
+        with:
+          version: 10
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Playwright against the offline api
+        run: pnpm e2e
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: failure()
+        with:
+          name: playwright-traces
+          path: apps/web/test-results

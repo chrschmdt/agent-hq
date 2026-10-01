@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" role="img" aria-label="An agent step asks the limiter, takes one of its provider's slots from Postgres, and calls the provider. A busy answer is retried after a jittered wait no shorter than the provider asks. When no slot frees up, the provider asks for a long wait, or every attempt is busy, the step raises RetryLater, the runner queues a delayed continue job, and the work resumes from the checkpoint before that step.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --teal-ink:#134e4a; --stone:#a8a29e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --teal-ink:#ccfbf1; --stone:#78716c; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .band { fill: var(--band); stroke: var(--line); }
+    .band-key { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .row { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+    .chip { fill: var(--bg); stroke: var(--stone); }
+    .chip-key { fill: var(--bg); stroke: var(--teal); }
+    .name { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .desc { font-size: 11.5px; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.5; }
+    .impl { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .note { font-size: 11.5px; fill: var(--ink2); }
+    .note-teal { font-size: 11.5px; fill: var(--teal); font-weight: 600; }
+    .box { fill: var(--bg); stroke: var(--stone); }
+    .box-key { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .label { font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .sub { font-size: 11px; fill: var(--muted); }
+    .title { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; fill: var(--muted); }
+    .skip { fill: none; stroke: var(--ink2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .bad { fill: none; stroke: #d97706; stroke-width: 1.5; }
+    .head-bad { fill: #d97706; }
+    .note-bad { font-size: 11.5px; fill: #b45309; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-bad"/>
+    </marker>
+  </defs>
+  <rect class="panel" x="0.5" y="0.5" width="999" height="419" rx="16"/>
+  <text class="title" x="32" y="42" text-anchor="start">A MODEL CALL UNDER LOAD</text>
+  <rect class="box" x="32" y="100" width="150" height="62" rx="8"/>
+  <text class="label" x="107.0" y="122" text-anchor="middle">agent step</text>
+  <text class="sub" x="107.0" y="139" text-anchor="middle">call_model, dispatch,</text>
+  <text class="sub" x="107.0" y="153" text-anchor="middle">the input check</text>
+  <rect class="box" x="232" y="100" width="150" height="62" rx="8"/>
+  <text class="label" x="307.0" y="122" text-anchor="middle">limiter</text>
+  <text class="sub" x="307.0" y="139" text-anchor="middle">pause, budgets,</text>
+  <text class="sub" x="307.0" y="153" text-anchor="middle">breaker to fallback</text>
+  <rect class="box-key" x="432" y="100" width="170" height="62" rx="8"/>
+  <text class="label" x="517.0" y="122" text-anchor="middle">provider slot</text>
+  <text class="sub" x="517.0" y="139" text-anchor="middle">at most N in flight,</text>
+  <text class="sub" x="517.0" y="153" text-anchor="middle">shared in Postgres</text>
+  <rect class="box" x="652" y="100" width="150" height="62" rx="8"/>
+  <text class="label" x="727.0" y="123" text-anchor="middle">OpenRouter</text>
+  <text class="sub" x="727.0" y="139" text-anchor="middle">the model answers</text>
+  <rect class="box" x="852" y="100" width="116" height="62" rx="8"/>
+  <text class="label" x="910.0" y="135.0" text-anchor="middle">answer</text>
+  <path class="edge" d="M184,131.0 L228,131.0" marker-end="url(#a)"/>
+  <path class="edge" d="M384,131.0 L428,131.0" marker-end="url(#a)"/>
+  <path class="edge" d="M604,131.0 L648,131.0" marker-end="url(#a)"/>
+  <path class="edge" d="M804,131.0 L848,131.0" marker-end="url(#a)"/>
+  <path class="impl" d="M727,98 C727,60 517,60 517,96" marker-end="url(#t)"/>
+  <text class="note-teal" x="622" y="56" text-anchor="middle">429 or 5xx: wait with full jitter, never less than retry-after</text>
+  <rect class="box-key" x="432" y="262" width="170" height="62" rx="8"/>
+  <text class="label" x="517.0" y="284" text-anchor="middle">RetryLater</text>
+  <text class="sub" x="517.0" y="301" text-anchor="middle">no slot in time, a long</text>
+  <text class="sub" x="517.0" y="315" text-anchor="middle">wait asked, or still busy</text>
+  <rect class="box" x="232" y="262" width="150" height="62" rx="8"/>
+  <text class="label" x="307.0" y="284" text-anchor="middle">segment runner</text>
+  <text class="sub" x="307.0" y="301" text-anchor="middle">queues a delayed</text>
+  <text class="sub" x="307.0" y="315" text-anchor="middle">continue job</text>
+  <rect class="box" x="32" y="262" width="150" height="62" rx="8"/>
+  <text class="label" x="107.0" y="285" text-anchor="middle">queue</text>
+  <text class="sub" x="107.0" y="301" text-anchor="middle">delivers it later</text>
+  <path class="impl" d="M517,164 L517,258" marker-end="url(#t)"/>
+  <path class="edge" d="M430,293 L386,293" marker-end="url(#a)"/>
+  <path class="edge" d="M230,293 L186,293" marker-end="url(#a)"/>
+  <path class="edge" d="M107,260 L107,166" marker-end="url(#a)"/>
+  <text class="note" x="117" y="216" text-anchor="start">resumes from the checkpoint before the step</text>
+  <text class="note" x="32" y="380" text-anchor="start">The work is deferred, not failed: nothing counts against the agent, and nothing the step did is lost.</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" role="img" aria-label="The map and the run inspector are drawn from events. Live, events arrive over the SSE stream and are drawn a moment behind the api's clock; replayed, they come from a recorded day's bundle and a playback clock. Either way the same buildTimeline turns events into a timeline and the same frameAt draws it at a time t. The run inspector joins a run's events to its saved thread.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --stone:#a8a29e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --stone:#78716c; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .box { fill: var(--bg); stroke: var(--stone); }
+    .key { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .label { font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; font-weight: 600; fill: var(--ink); }
+    .sub { font-size: 11px; fill: var(--muted); }
+    .title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.5; }
+    .clock { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .note { font-size: 11px; fill: var(--ink2); }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink2)"/>
+    </marker>
+    <marker id="t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--teal)"/>
+    </marker>
+  </defs>
+  <rect class="panel" x="0.5" y="0.5" width="999" height="399" rx="12"/>
+  <text class="title" x="24" y="30">THE MAP</text>
+
+  <rect class="box" x="24" y="48" width="180" height="56" rx="8"/>
+  <text class="label" x="36" y="70">Live stream</text>
+  <text class="sub" x="36" y="88">SSE, for the admin</text>
+
+  <rect class="box" x="24" y="122" width="180" height="56" rx="8"/>
+  <text class="label" x="36" y="144">Recorded day</text>
+  <text class="sub" x="36" y="162">a published recording</text>
+
+  <path class="edge" d="M204 76 H232 V112 H252" marker-end="url(#a)"/>
+  <path class="edge" d="M204 150 H232 V116" />
+
+  <rect class="key" x="254" y="84" width="172" height="58" rx="8"/>
+  <text class="code" x="266" y="107">buildTimeline</text>
+  <text class="sub" x="266" y="126">events and the model lineup</text>
+
+  <path class="edge" d="M426 113 H458" marker-end="url(#a)"/>
+
+  <rect class="box" x="460" y="70" width="210" height="86" rx="8"/>
+  <text class="label" x="472" y="92">Timeline</text>
+  <text class="sub" x="472" y="110">items and their stops, model calls,</text>
+  <text class="sub" x="472" y="125">tool calls, flashes, captions,</text>
+  <text class="sub" x="472" y="140">chapters, counters, simulated time</text>
+
+  <path class="edge" d="M670 113 H702" marker-end="url(#a)"/>
+
+  <rect class="key" x="704" y="84" width="130" height="58" rx="8"/>
+  <text class="code" x="716" y="107">frameAt(t)</text>
+  <text class="sub" x="716" y="126">a pure function</text>
+
+  <path class="edge" d="M834 113 H862" marker-end="url(#a)"/>
+  <rect class="box" x="864" y="84" width="112" height="58" rx="8"/>
+  <text class="label" x="876" y="107">Map</text>
+  <text class="sub" x="876" y="126">and the player</text>
+
+  <path class="clock" d="M769 200 V146" marker-end="url(#t)"/>
+  <rect class="box" x="600" y="200" width="376" height="60" rx="8"/>
+  <text class="label" x="612" y="222">The clock that picks t</text>
+  <text class="sub" x="612" y="240">live: the api's time less 1.5 s, so events play in order</text>
+  <text class="sub" x="612" y="254">replay: the store's day at 120x to 1440x, seekable, skipping quiet stretches</text>
+
+  <line x1="24" y1="286" x2="976" y2="286" stroke="var(--line)"/>
+  <text class="title" x="24" y="312">THE RUN INSPECTOR</text>
+
+  <rect class="box" x="24" y="326" width="180" height="56" rx="8"/>
+  <text class="label" x="36" y="348">A run's events</text>
+  <text class="sub" x="36" y="366">each call's timing and verdict</text>
+
+  <rect class="box" x="236" y="326" width="200" height="56" rx="8"/>
+  <text class="label" x="248" y="348">Its thread</text>
+  <text class="sub" x="248" y="366">the saved messages and reasoning</text>
+
+  <path class="edge" d="M204 354 H220 V300 H470 V330 H486" marker-end="url(#a)"/>
+  <path class="edge" d="M436 354 H486" marker-end="url(#a)"/>
+
+  <rect class="key" x="488" y="326" width="120" height="56" rx="8"/>
+  <text class="code" x="500" y="349">inspect</text>
+  <text class="sub" x="500" y="367">joined by ids</text>
+
+  <path class="edge" d="M608 354 H640" marker-end="url(#a)"/>
+  <rect class="box" x="642" y="326" width="334" height="56" rx="8"/>
+  <text class="label" x="654" y="348">Passes, timeline lanes, the loop, checks</text>
+  <text class="sub" x="654" y="366">a model call names its message; a tool call names its call id</text>
+</svg>

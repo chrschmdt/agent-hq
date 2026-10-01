@@ -1,0 +1,81 @@
+name: eval
+
+# Runs an eval gate requested from the control room.
+
+on:
+  workflow_dispatch:
+    inputs:
+      eval_run_id:
+        description: The eval run to execute, as the control room created it
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eval-${{ inputs.eval_run_id }}
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    name: eval gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.6-pg18
+        env:
+          POSTGRES_USER: ahq
+          POSTGRES_PASSWORD: ahq
+          POSTGRES_DB: ahq
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U ahq -d ahq"
+          --health-interval 2s
+          --health-retries 30
+    env:
+      EVAL_RUN_ID: ${{ inputs.eval_run_id }}
+      AHQ_API_URL: ${{ vars.AHQ_API_URL }}
+      DATABASE_URL: postgresql://ahq:ahq@localhost:5432/ahq
+      DATABASE_URL_UNPOOLED: postgresql://ahq:ahq@localhost:5432/ahq
+      AHQ_ENV: local
+      AHQ_QUEUE_BACKEND: inprocess
+      AHQ_TOOL_TRANSPORT: direct
+    steps:
+      - name: Check the run id
+        working-directory: .
+        run: |
+          if [[ ! "$EVAL_RUN_ID" =~ ^ev_[0-9a-f]{16}$ ]]; then
+            echo "::error::not an eval run id"
+            exit 1
+          fi
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Read the suite
+        run: |
+          suite=$(curl -fsS "$AHQ_API_URL/api/evals/$EVAL_RUN_ID" | jq -r '.params.suite')
+          case "$suite" in
+            tau3|dispatcher|scenario) echo "SUITE=$suite" >> "$GITHUB_ENV" ;;
+            *) echo "::error::unknown suite"; exit 1 ;;
+          esac
+      - name: Seed a database for scenario days
+        if: env.SUITE == 'scenario'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          uv run ahq db migrate
+          uv run ahq db seed
+          AHQ_MODEL_PROFILE=low uv run ahq db embed
+      - name: Run the gate
+        env:
+          AHQ_OPERATOR_TOKEN: ${{ secrets.AHQ_OPERATOR_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+        run: uv run ahq eval gate --run "$EVAL_RUN_ID" --api-url "$AHQ_API_URL"

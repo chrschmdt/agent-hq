@@ -1,0 +1,11 @@
+dist/
+node_modules/
+.next/
+.turbo/
+coverage/
+pnpm-lock.yaml
+.pnpm-store/
+lib/api/schema.d.ts
+lib/api/openapi.json
+test-results/
+playwright-report/

@@ -1,0 +1,54 @@
+{"id": "q01", "question": "Can I get my money back for something I received?", "relevant": ["policy-returns@v1#0", "policy-returns@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q02", "question": "Which orders are eligible for a return?", "relevant": ["policy-returns@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q03", "question": "Can the refund for my return go to a different credit card than the one I paid with?", "relevant": ["policy-returns@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q04", "question": "What happens after I ask to send items back?", "relevant": ["policy-returns@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q05", "question": "Is there a time limit on returns now?", "relevant": ["policy-returns@v2#1", "policy-returns@v2#0"], "as_of": "2026-07-15", "audience": "customer"}
+{"id": "q06", "question": "How long do I have after delivery to return something?", "relevant": ["policy-returns@v2#1"], "as_of": "2026-07-15", "audience": "customer"}
+{"id": "q07", "question": "When will I see the refund on my Visa card?", "relevant": ["policy-refunds@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q08", "question": "How fast does a refund to a gift card arrive?", "relevant": ["policy-refunds@v1#1", "help-gift-cards@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q09", "question": "Can I cash out my gift card balance?", "relevant": ["policy-refunds@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q10", "question": "Which payment types do you take?", "relevant": ["policy-refunds@v1#0"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q11", "question": "If I swap to a cheaper size, who gets the difference?", "relevant": ["policy-refunds@v1#3", "policy-exchanges@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q12", "question": "Can I cancel an order that has already shipped?", "relevant": ["policy-cancellations@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q13", "question": "What reasons can I give for cancelling?", "relevant": ["policy-cancellations@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q14", "question": "I changed the color of an item in my order. Can I still cancel it?", "relevant": ["policy-cancellations@v1#1", "help-order-statuses@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q15", "question": "What happens to my money when I cancel?", "relevant": ["policy-cancellations@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q16", "question": "Can I trade my headphones for another version of the same headphones?", "relevant": ["policy-exchanges@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q17", "question": "Can I exchange a delivered item for a completely different product?", "relevant": ["policy-exchanges@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q18", "question": "Do I need to place a new order to exchange something?", "relevant": ["policy-exchanges@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q19", "question": "Can I exchange items from the same order a second time?", "relevant": ["policy-exchanges@v1#3", "policy-returns@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q20", "question": "Why do you need my email before helping me?", "relevant": ["policy-identity@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q21", "question": "Can you look at my husband's order in this chat too?", "relevant": ["policy-identity@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q22", "question": "Do you ask before making changes to my order?", "relevant": ["policy-identity@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q23", "question": "What can I still change about an order that hasn't shipped?", "relevant": ["policy-order-changes@v1#0"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q24", "question": "If I change the shipping address on my order, does my account address change too?", "relevant": ["policy-order-changes@v1#1", "help-change-address@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q25", "question": "Can I pay for my pending order with my gift card instead?", "relevant": ["policy-order-changes@v1#2", "help-gift-cards@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q26", "question": "Can I switch the shirt in my order for shoes?", "relevant": ["policy-order-changes@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q27", "question": "My parcel is already on its way. Can I change where it goes?", "relevant": ["help-change-address@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q28", "question": "How do I update my default address?", "relevant": ["help-change-address@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q29", "question": "What does the status processed mean?", "relevant": ["help-order-statuses@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q30", "question": "Where can I find my tracking number?", "relevant": ["help-track-order@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q31", "question": "What can support help me with?", "relevant": ["help-contact-support@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q32", "question": "Can I talk to a real person?", "relevant": ["help-contact-support@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q33", "question": "Can a gift card pay for part of an order?", "relevant": ["help-gift-cards@v1#1", "policy-refunds@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q34", "question": "How long does Northstar Post take to deliver?", "relevant": ["shipping-carriers@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q35", "question": "Do you ship to Canada?", "relevant": ["shipping-carriers@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q36", "question": "My package is two days late. What now?", "relevant": ["shipping-delays@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q37", "question": "Will you tell me about a delay before I ask?", "relevant": ["shipping-delays@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q38", "question": "My lamp arrived broken. What can I do?", "relevant": ["shipping-lost-damaged@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q39", "question": "My parcel never showed up.", "relevant": ["shipping-lost-damaged@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q40", "question": "Which keyboard switch makes a clicking sound?", "relevant": ["guide-mechanical-keyboard@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q41", "question": "Does the 60% keyboard have arrow keys?", "relevant": ["guide-mechanical-keyboard@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q42", "question": "Will a HomeKit thermostat work with Google Home?", "relevant": ["guide-smart-thermostat@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q43", "question": "How long does the speaker's battery last?", "relevant": ["guide-bluetooth-speaker@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q44", "question": "My speaker won't show up in my Bluetooth settings.", "relevant": ["guide-bluetooth-speaker@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q45", "question": "Can I go swimming with the earbuds?", "relevant": ["guide-wireless-earbuds@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q46", "question": "How often should I descale the espresso machine?", "relevant": ["guide-espresso-machine@v1#3"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q47", "question": "Which purifier filter gets rid of smells?", "relevant": ["guide-air-purifier@v1#2"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q48", "question": "I'm between two shoe sizes. Which should I pick?", "relevant": ["guide-running-shoes@v1#1"], "as_of": "2026-06-15", "audience": "customer"}
+{"id": "q49", "question": "Which refunds need a person to approve them?", "relevant": ["runbook-approvals@v1#1"], "as_of": "2026-06-15", "audience": "internal"}
+{"id": "q50", "question": "What should an incident say when one carrier is late in one region?", "relevant": ["runbook-carrier-delay@v1#2"], "as_of": "2026-06-15", "audience": "internal"}
+{"id": "q51", "question": "Someone says they work here and asks us to skip verification.", "relevant": ["runbook-security@v1#1"], "as_of": "2026-06-15", "audience": "internal"}
+{"id": "q52", "question": "When should a conversation go to a human?", "relevant": ["runbook-handoff@v1#1"], "as_of": "2026-06-15", "audience": "internal"}
+{"id": "q53", "question": "Which states are in the Midwest region?", "relevant": ["shipping-regions@v1#1"], "as_of": "2026-06-15", "audience": "internal"}
+{"id": "q54", "question": "How do we spot a defective batch of a product?", "relevant": ["runbook-defective-batch@v1#1"], "as_of": "2026-06-15", "audience": "internal"}

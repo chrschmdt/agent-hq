@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-label="Top: a version goes from draft through the eval gate to evaluated, takes a share of new work as a canary, and is promoted to live or rolled back to retired; a draft can skip the gate only on an operator's say-so, which is recorded. Bottom: every finished run is recorded in the run ledger, some are reviewed by the QA reviewer, people's blind labels calibrate the reviewer, and the scorecards built from all three drive the canary watch.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --teal-ink:#134e4a; --stone:#a8a29e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --teal-ink:#ccfbf1; --stone:#78716c; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .band { fill: var(--band); stroke: var(--line); }
+    .band-key { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .row { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+    .chip { fill: var(--bg); stroke: var(--stone); }
+    .chip-key { fill: var(--bg); stroke: var(--teal); }
+    .name { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .desc { font-size: 11.5px; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.5; }
+    .impl { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .note { font-size: 11.5px; fill: var(--ink2); }
+    .note-teal { font-size: 11.5px; fill: var(--teal); font-weight: 600; }
+    .box { fill: var(--bg); stroke: var(--stone); }
+    .box-key { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.5; }
+    .label { font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .sub { font-size: 11px; fill: var(--muted); }
+    .title { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; fill: var(--muted); }
+    .skip { fill: none; stroke: var(--ink2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .bad { fill: none; stroke: #d97706; stroke-width: 1.5; }
+    .head-bad { fill: #d97706; }
+    .note-bad { font-size: 11.5px; fill: #b45309; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-bad"/>
+    </marker>
+  </defs>
+
+  <rect class="panel" x="0.5" y="0.5" width="999" height="559" rx="16"/>
+  <text class="title" x="32" y="42">A VERSION'S LIFE</text>
+  <rect class="box" x="200" y="104" width="130" height="52" rx="8"/>
+  <text class="label" x="265.0" y="127.0" text-anchor="middle">draft</text>
+  <text class="sub" x="265.0" y="143.0" text-anchor="middle">a change, not yet gated</text>
+  <rect class="box" x="420" y="104" width="130" height="52" rx="8"/>
+  <text class="label" x="485.0" y="127.0" text-anchor="middle">evaluated</text>
+  <text class="sub" x="485.0" y="143.0" text-anchor="middle">passed the eval gate</text>
+  <rect class="box-key" x="640" y="104" width="130" height="52" rx="8"/>
+  <text class="label" x="705.0" y="127.0" text-anchor="middle">canary</text>
+  <text class="sub" x="705.0" y="143.0" text-anchor="middle">a share of new work</text>
+  <rect class="box" x="840" y="104" width="130" height="52" rx="8"/>
+  <text class="label" x="905.0" y="127.0" text-anchor="middle">live</text>
+  <text class="sub" x="905.0" y="143.0" text-anchor="middle">all other work</text>
+  <rect class="box" x="740" y="222" width="130" height="52" rx="8"/>
+  <text class="label" x="805.0" y="245.0" text-anchor="middle">retired</text>
+  <text class="sub" x="805.0" y="261.0" text-anchor="middle">kept for the record</text>
+  <text class="note" x="32" y="124">a change in code</text>
+  <text class="note" x="32" y="140">or in the control room</text>
+  <line class="edge" x1="160" y1="130" x2="196" y2="130" marker-end="url(#a)"/>
+  <line class="edge" x1="330" y1="130" x2="416" y2="130" marker-end="url(#a)"/>
+  <text class="note" x="373" y="122" text-anchor="middle">gate passes</text>
+  <line class="edge" x1="550" y1="130" x2="636" y2="130" marker-end="url(#a)"/>
+  <text class="note" x="593" y="122" text-anchor="middle">start</text>
+  <line class="impl" x1="770" y1="130" x2="836" y2="130" marker-end="url(#t)"/>
+  <text class="note-teal" x="803" y="122" text-anchor="middle">promote</text>
+  <path class="bad" d="M705 156 V248 H736" marker-end="url(#b)"/>
+  <text class="note-bad" x="696" y="196" text-anchor="end">roll back</text>
+  <path class="edge" d="M905 156 V248 H874" marker-end="url(#a)"/>
+  <text class="note" x="914" y="196">replaced</text>
+  <path class="skip" d="M265 104 C 265 56, 705 56, 705 100" marker-end="url(#a)"/>
+  <text class="note" x="485" y="66" text-anchor="middle">skip the gate: an operator's call, and the timeline says so</text>
+  <line x1="32" y1="300" x2="968" y2="300" stroke="var(--line)"/>
+  <text class="title" x="32" y="336">WHAT THE CANARY WATCH DECIDES FROM</text>
+  <rect class="box" x="32" y="372" width="150" height="56" rx="8"/>
+  <text class="label" x="107.0" y="397.0" text-anchor="middle">finished run</text>
+  <text class="sub" x="107.0" y="413.0" text-anchor="middle">one agent, one work item</text>
+  <rect class="box" x="262" y="372" width="170" height="56" rx="8"/>
+  <text class="label" x="347.0" y="397.0" text-anchor="middle">run ledger</text>
+  <text class="sub" x="347.0" y="413.0" text-anchor="middle">totals, written whole</text>
+  <rect class="box" x="512" y="372" width="170" height="56" rx="8"/>
+  <text class="label" x="597.0" y="397.0" text-anchor="middle">scorecards</text>
+  <text class="sub" x="597.0" y="413.0" text-anchor="middle">live against canary</text>
+  <rect class="box-key" x="762" y="372" width="206" height="56" rx="8"/>
+  <text class="label" x="865.0" y="397.0" text-anchor="middle">canary watch</text>
+  <text class="sub" x="865.0" y="413.0" text-anchor="middle">promote, continue, roll back</text>
+  <line class="edge" x1="182" y1="400" x2="258" y2="400" marker-end="url(#a)"/>
+  <line class="edge" x1="432" y1="400" x2="508" y2="400" marker-end="url(#a)"/>
+  <line class="impl" x1="682" y1="400" x2="758" y2="400" marker-end="url(#t)"/>
+  <rect class="box" x="262" y="470" width="170" height="56" rx="8"/>
+  <text class="label" x="347.0" y="495.0" text-anchor="middle">QA reviewer</text>
+  <text class="sub" x="347.0" y="511.0" text-anchor="middle">a sample, every canary run</text>
+  <rect class="box" x="512" y="470" width="170" height="56" rx="8"/>
+  <text class="label" x="597.0" y="495.0" text-anchor="middle">calibration</text>
+  <text class="sub" x="597.0" y="511.0" text-anchor="middle">people's labels, blind</text>
+  <path class="edge" d="M107 428 V498 H258" marker-end="url(#a)"/>
+  <line class="edge" x1="432" y1="498" x2="508" y2="498" marker-end="url(#a)"/>
+  <text class="note" x="470" y="490" text-anchor="middle">verdicts</text>
+  <line class="edge" x1="597" y1="470" x2="597" y2="432" marker-end="url(#a)"/>
+  <text class="note" x="608" y="454">QA counts only</text>
+  <text class="note" x="608" y="468">once calibrated</text>
+</svg>

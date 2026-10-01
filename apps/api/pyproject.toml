@@ -1,0 +1,190 @@
+[project]
+name = "ahq"
+version = "0.1.0"
+description = "A team of AI agents running customer operations for an online store, with a control room to manage them."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "alembic>=1.20",
+    "fastapi>=0.141",
+    "fastmcp-slim[client]>=4.0.10,<5",
+    "httpx>=0.28",
+    "httpx2>=2.13,<3",
+    "langchain>=1.4.2,<1.5",
+    "langchain-anthropic>=1.7.4,<1.8",
+    "langchain-openai>=1.6,<1.7",
+    "langgraph>=1.2.12,<1.3",
+    "langgraph-checkpoint-postgres>=3.1.2,<3.2",
+    "langsmith>=0.14,<0.15",
+    "mcp>=2.2,<3",
+    "numpy>=2.5",
+    "pgvector>=0.5",
+    "psycopg[binary,pool]>=3.3",
+    "pydantic>=2.12",
+    "pydantic-settings>=2.15",
+    "sqlalchemy[asyncio]>=2.1",
+    "sqlglot>=30.19,<31",
+    "typer>=0.27",
+    "vercel-queue>=0.9",
+]
+
+[project.scripts]
+ahq = "ahq.cli:app"
+
+[dependency-groups]
+dev = [
+    { include-group = "test" },
+    "basedpyright>=1.40",
+    "import-linter>=2.15",
+    "ruff>=0.16",
+    "uvicorn[standard]>=0.54",
+]
+test = [
+    "hypothesis>=6.168",
+    "pytest>=9.1",
+    "pytest-asyncio>=1.4",
+    "pytest-socket>=0.8",
+    "pytest-xdist>=3.8",
+    "qdrant-client>=1.19.1,<1.20",
+    "respx>=0.23",
+    "syrupy>=6.1",
+]
+
+[tool.vercel]
+entrypoint = "ahq.main:app"
+
+[[tool.vercel.subscribers]]
+entrypoint = "ahq.worker"
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+src = [".", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "PIE", "RET", "RUF", "ASYNC", "PT", "T20", "S", "DTZ", "TID", "N", "PLE", "PLW"]
+ignore = ["N818", "S101", "RET504", "PLW0603"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "PLW"]
+"ahq/adapters/clock.py" = ["TID251"]
+"ahq/db/migrations/**" = ["E501"]
+"ahq/sim/**" = ["S311"]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"datetime.datetime.now".msg = "Read time from a `Clock` (ahq.ports.Clock)."
+"datetime.datetime.utcnow".msg = "Read time from a `Clock` (ahq.ports.Clock)."
+"time.time".msg = "Read time from a `Clock` (ahq.ports.Clock)."
+
+[tool.ruff.lint.isort]
+known-first-party = ["ahq"]
+
+[tool.basedpyright]
+pythonVersion = "3.13"
+include = ["ahq", "tests"]
+exclude = ["ahq/db/migrations/versions"]
+typeCheckingMode = "standard"
+strict = [
+    "ahq/domain", "ahq/ports", "ahq/config", "ahq/retail", "ahq/retrieval", "ahq/analytics", "ahq/tools", "ahq/agents",
+    "ahq/grading", "ahq/guardrails", "ahq/scorecards",
+]
+reportMissingTypeStubs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-ra --strict-markers -m 'not live' --disable-socket --allow-unix-socket --allow-hosts=127.0.0.1,localhost,::1"
+markers = [
+    "db: needs the local Postgres from docker compose",
+    "pooled: needs PgBouncer in front of the local Postgres",
+    "qdrant: needs the local Qdrant from docker compose",
+    "live: calls real external services and may cost money",
+]
+filterwarnings = [
+    "ignore::langchain_core._api.beta_decorator.LangChainBetaWarning",
+]
+
+[tool.importlinter]
+root_package = "ahq"
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "Layers"
+type = "layers"
+layers = [
+    "ahq.main | ahq.worker | ahq.cli",
+    "ahq.api",
+    "ahq.evals",
+    "ahq.app",
+    "ahq.runtime | ahq.mcp_servers",
+    "ahq.testing",
+    "ahq.adapters | ahq.db",
+    "ahq.graphs | ahq.sim | ahq.management",
+    "ahq.scorecards",
+    "ahq.agents | ahq.grading | ahq.guardrails",
+    "ahq.tools",
+    "ahq.retail | ahq.retrieval | ahq.analytics",
+    "ahq.ports",
+    "ahq.config",
+    "ahq.domain",
+]
+
+[[tool.importlinter.contracts]]
+name = "Adapters and the database layer depend only on ports and the domain"
+type = "forbidden"
+allow_indirect_imports = true
+source_modules = ["ahq.adapters", "ahq.db"]
+forbidden_modules = [
+    "ahq.graphs", "ahq.sim", "ahq.management", "ahq.scorecards", "ahq.agents", "ahq.grading", "ahq.guardrails",
+    "ahq.tools", "ahq.retail", "ahq.retrieval", "ahq.analytics",
+]
+
+[[tool.importlinter.contracts]]
+name = "Settings are read only at the edges"
+type = "forbidden"
+allow_indirect_imports = true
+source_modules = [
+    "ahq.domain", "ahq.config", "ahq.ports", "ahq.retail", "ahq.retrieval", "ahq.analytics", "ahq.tools", "ahq.agents",
+    "ahq.grading", "ahq.guardrails", "ahq.scorecards",
+    "ahq.graphs", "ahq.sim", "ahq.management", "ahq.runtime",
+    "ahq.adapters",
+    "ahq.mcp_servers",
+]
+forbidden_modules = ["ahq.settings"]
+
+[[tool.importlinter.contracts]]
+name = "Queue SDK stays in its adapter and the worker"
+type = "forbidden"
+allow_indirect_imports = true
+source_modules = ["ahq.domain", "ahq.config", "ahq.ports", "ahq.graphs", "ahq.runtime", "ahq.api", "ahq.app", "ahq.db", "ahq.mcp_servers"]
+forbidden_modules = ["vercel"]
+
+[[tool.importlinter.contracts]]
+name = "Provider SDKs stay in their adapters"
+type = "forbidden"
+allow_indirect_imports = true
+source_modules = [
+    "ahq.domain", "ahq.config", "ahq.ports", "ahq.graphs", "ahq.management", "ahq.scorecards", "ahq.guardrails",
+    "ahq.runtime", "ahq.api", "ahq.db", "ahq.mcp_servers",
+]
+forbidden_modules = ["langchain_anthropic", "langchain_openai", "langsmith", "fastmcp"]
+
+[[tool.importlinter.contracts]]
+name = "qdrant-client is a development dependency, used only by the in-memory vector store"
+type = "forbidden"
+source_modules = [
+    "ahq.main", "ahq.worker", "ahq.cli", "ahq.api", "ahq.app", "ahq.runtime", "ahq.mcp_servers", "ahq.adapters",
+    "ahq.db", "ahq.graphs", "ahq.sim", "ahq.management", "ahq.scorecards", "ahq.agents", "ahq.grading", "ahq.guardrails",
+    "ahq.tools", "ahq.retail", "ahq.retrieval", "ahq.analytics", "ahq.ports", "ahq.config", "ahq.domain", "ahq.evals",
+]
+forbidden_modules = ["qdrant_client"]
+allow_indirect_imports = true

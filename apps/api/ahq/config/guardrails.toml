@@ -1,0 +1,18 @@
+# Input and reply checks.
+
+[input]
+# Input patterns, matched case-insensitively.
+classifier = true
+patterns = [
+    '''\b(ignore|disregard|forget|override)\b.{0,30}\b(previous|prior|above|earlier|your|all)\b.{0,20}\b(instructions|rules|guidelines|prompts?)\b''',
+    '''\b(system|developer|hidden|initial)\s+(prompt|message|instructions)\b''',
+    '''\b(developer|debug|god|admin|maintenance)\s+mode\b''',
+    '''\bjailbreak''',
+    '''\bdo anything now\b''',
+    '''</?\s*(system|instructions?|assistant|tool_result)\s*>''',
+    '''\bnew\s+(instructions|rules)\s*:''',
+]
+
+[output]
+# Hosts a reply may link to. Empty: any link is blocked.
+allowed_hosts = []

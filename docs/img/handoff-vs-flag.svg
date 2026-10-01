@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-label="Two ways work moves between agents. A handoff stays in one work item and one thread: an alert goes to the Dispatcher, which sends it to Ops; Ops files an incident and its loop ends with a command to the team graph that names Insights and writes a brief citing the incident into Insights' channel; Insights drafts and proposes, then the work finalizes. A flag starts new work: while answering a ticket, Support calls flag_pattern; the team desk submits a flag work item keyed by run, topic and day, returns its id, and Support carries on with its reply. The flag work item starts its own thread, where the Dispatcher routes it to Ops or Insights. A second flag on the same topic that day joins the same work item.">
+  <style>
+    svg { --bg:#ffffff; --line:#e7e5e4; --ink:#1c1917; --ink2:#57534e; --muted:#78716c; --band:#fafaf9;
+          --teal:#0d9488; --teal-bg:#f0fdfa; --stone:#a8a29e; --stone-bg:#f5f5f4; --amber:#d97706; --amber-bg:#fffbeb; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#161413; --line:#2e2a27; --ink:#f5f5f4; --ink2:#a8a29e; --muted:#a8a29e; --band:#1c1917;
+            --teal:#2dd4bf; --teal-bg:#0b2926; --stone:#78716c; --stone-bg:#1f1c1a; --amber:#fbbf24; --amber-bg:#2a1e05; }
+    }
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+    .panel { fill: var(--bg); stroke: var(--line); }
+    .band { fill: var(--band); stroke: none; }
+    .code { fill: var(--teal-bg); stroke: var(--teal); stroke-width: 1.3; }
+    .platform { fill: var(--stone-bg); stroke: var(--stone); stroke-width: 1.2; }
+    .title { font-size: 13px; font-weight: 700; fill: var(--ink); }
+    .small { font-size: 11px; fill: var(--muted); }
+    .edge { fill: none; stroke: var(--ink2); stroke-width: 1.4; }
+    .back { fill: none; stroke: var(--ink2); stroke-width: 1.3; stroke-dasharray: 5 4; }
+    .key { fill: none; stroke: var(--teal); stroke-width: 1.6; }
+    .head { fill: var(--ink2); }
+    .head-teal { fill: var(--teal); }
+    .label { font-size: 11.5px; fill: var(--ink2); }
+    .label-teal { font-size: 11.5px; font-weight: 600; fill: var(--teal); }
+    .note { font-size: 11.5px; fill: var(--ink); }
+    .row { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; fill: var(--muted); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-teal"/>
+    </marker>
+  </defs>
+  <rect class="panel" x="0.5" y="0.5" width="1199" height="619" rx="16"/>
+
+  <rect class="band" x="1" y="24" width="1198" height="250"/>
+  <text class="row" x="24" y="52">HANDOFF: ONE WORK ITEM, ONE THREAD</text>
+
+  <rect class="platform" x="40" y="96" width="140" height="56" rx="10"/>
+  <text class="title" x="110" y="120" text-anchor="middle">KPI alert</text>
+  <text class="small" x="110" y="138" text-anchor="middle">delivery watch</text>
+
+  <rect class="code" x="250" y="96" width="150" height="56" rx="10"/>
+  <text class="title" x="325" y="120" text-anchor="middle">Dispatcher</text>
+  <text class="small" x="325" y="138" text-anchor="middle">one typed call</text>
+
+  <rect class="code" x="480" y="96" width="170" height="56" rx="10"/>
+  <text class="title" x="565" y="120" text-anchor="middle">Ops loop</text>
+  <text class="small" x="565" y="138" text-anchor="middle">files the incident</text>
+
+  <rect class="code" x="780" y="96" width="170" height="56" rx="10"/>
+  <text class="title" x="865" y="120" text-anchor="middle">Insights loop</text>
+  <text class="small" x="865" y="138" text-anchor="middle">drafts and proposes</text>
+
+  <rect class="code" x="1030" y="96" width="140" height="56" rx="10"/>
+  <text class="title" x="1100" y="120" text-anchor="middle">finalize</text>
+  <text class="small" x="1100" y="138" text-anchor="middle">work item done</text>
+
+  <path class="edge" d="M180,124 L246,124" marker-end="url(#arrow)"/>
+  <text class="label" x="213" y="114" text-anchor="middle">new work</text>
+  <path class="edge" d="M400,124 L476,124" marker-end="url(#arrow)"/>
+  <text class="label" x="438" y="114" text-anchor="middle">goto ops</text>
+  <path class="key" d="M650,124 L776,124" marker-end="url(#arrow-teal)"/>
+  <text class="label-teal" x="713" y="114" text-anchor="middle">Command.PARENT</text>
+  <path class="edge" d="M950,124 L1026,124" marker-end="url(#arrow)"/>
+  <text class="label" x="988" y="114" text-anchor="middle">goto</text>
+
+  <text class="note" x="713" y="180" text-anchor="middle">brief citing inc_… written into</text>
+  <text class="note" x="713" y="196" text-anchor="middle">insights_messages</text>
+  <text class="note" x="40" y="236">Each agent reads only its own channel. The command carries the loop's whole state back, because a subgraph</text>
+  <text class="note" x="40" y="254">that ends with a command hands over nothing else.</text>
+
+  <rect class="band" x="1" y="298" width="1198" height="298"/>
+  <text class="row" x="24" y="326">FLAG: A NEW WORK ITEM WITH ITS OWN THREAD</text>
+
+  <rect class="platform" x="40" y="366" width="140" height="56" rx="10"/>
+  <text class="title" x="110" y="390" text-anchor="middle">Ticket turn</text>
+  <text class="small" x="110" y="408" text-anchor="middle">customer message</text>
+
+  <rect class="code" x="250" y="366" width="170" height="56" rx="10"/>
+  <text class="title" x="335" y="390" text-anchor="middle">Support loop</text>
+  <text class="small" x="335" y="408" text-anchor="middle">calls flag_pattern</text>
+
+  <rect class="code" x="1030" y="366" width="140" height="56" rx="10"/>
+  <text class="title" x="1100" y="390" text-anchor="middle">finalize</text>
+  <text class="small" x="1100" y="408" text-anchor="middle">reply recorded</text>
+
+  <rect class="code" x="480" y="476" width="170" height="56" rx="10"/>
+  <text class="title" x="565" y="500" text-anchor="middle">Team desk</text>
+  <text class="small" x="565" y="518" text-anchor="middle">submit_work(FLAG, key)</text>
+
+  <rect class="platform" x="780" y="476" width="170" height="56" rx="10"/>
+  <text class="title" x="865" y="500" text-anchor="middle">Flag work item</text>
+  <text class="small" x="865" y="518" text-anchor="middle">key: run, topic, day</text>
+
+  <rect class="code" x="1030" y="476" width="140" height="56" rx="10"/>
+  <text class="title" x="1100" y="500" text-anchor="middle">Dispatcher</text>
+  <text class="small" x="1100" y="518" text-anchor="middle">to Ops or Insights</text>
+
+  <path class="edge" d="M180,394 L246,394" marker-end="url(#arrow)"/>
+  <path class="edge" d="M420,394 L1026,394" marker-end="url(#arrow)"/>
+  <text class="label" x="720" y="384" text-anchor="middle">carries on with the reply, same turn</text>
+  <path class="key" d="M300,422 L300,504 L476,504" marker-end="url(#arrow-teal)"/>
+  <text class="label-teal" x="308" y="490">flag_pattern</text>
+  <path class="back" d="M540,476 L540,450 L400,450 L400,426" marker-end="url(#arrow)"/>
+  <text class="label" x="410" y="444">work item id</text>
+  <path class="edge" d="M650,504 L776,504" marker-end="url(#arrow)"/>
+  <text class="label" x="713" y="494" text-anchor="middle">once per key</text>
+  <path class="edge" d="M950,504 L1026,504" marker-end="url(#arrow)"/>
+  <text class="label" x="988" y="494" text-anchor="middle">start</text>
+
+  <text class="note" x="40" y="568">A second flag on the same topic that day joins the same work item instead of starting another, so a busy day</text>
+  <text class="note" x="40" y="586">of similar complaints costs one investigation.</text>
+</svg>
